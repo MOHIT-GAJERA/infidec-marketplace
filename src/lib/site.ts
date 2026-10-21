@@ -83,7 +83,7 @@ export const footerNav = [
     links: [
       { href: "/contact-us", label: "Contact Us" },
       { href: "/help-center", label: "Help Center" },
-      { href: "/documentation", label: "Documentation" },
+      { href: "/docs", label: "Documentation" },
       { href: "/faqs", label: "FAQs" },
     ],
   },

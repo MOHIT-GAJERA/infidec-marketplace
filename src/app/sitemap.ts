@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { products } from "@/data/products";
 import { infoPages } from "@/data/pages";
 import { absUrl } from "@/lib/site";
+import { docHref, docsProducts, flatPages } from "@/lib/docs/products";
 
 const toDate = (d: string) => {
   const [dd, mm, yy] = d.split("-").map(Number);
@@ -29,5 +30,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "yearly",
     priority: 0.4,
   }));
-  return [...core, ...productUrls, ...info];
+  const docs: MetadataRoute.Sitemap = [
+    { url: absUrl("/docs"), lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    ...Object.values(docsProducts).flatMap((p) => [
+      { url: absUrl(`/docs/${p.slug}`), lastModified: now, changeFrequency: "monthly" as const, priority: 0.6 },
+      ...flatPages(p).map((page) => ({ url: absUrl(docHref(p.slug, page.slug)), lastModified: now, changeFrequency: "monthly" as const, priority: 0.5 })),
+    ]),
+  ];
+  return [...core, ...productUrls, ...info, ...docs];
 }

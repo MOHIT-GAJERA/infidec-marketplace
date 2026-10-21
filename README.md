@@ -116,3 +116,26 @@ Copy `.env.example` to `.env.local` and set `AUTH_SECRET` before deploying.
 - Connect a payment gateway (see *Payments* above) and an email provider for order emails / password reset.
 - `src/app/api/contact/route.ts` validates input but only logs it – connect your email/CRM provider.
 - Replace the placeholder email / phone / WhatsApp number in `src/lib/site.ts`.
+
+## Product documentation (`/docs`)
+
+Docs-site style documentation per product, same routing as the reference docs:
+
+| Route | What |
+|---|---|
+| `/docs` | List of documented products |
+| `/docs/<product>` | Product docs landing page (e.g. `/docs/qwikmart`) |
+| `/docs/<product>/docs/<section>/<page>` | A documentation page (e.g. `/docs/qwikmart/docs/admin/overview`) |
+| `/docs/<product>/search-index.json` | Static search index for the Ctrl + K search dialog |
+
+- **Content** — one Markdown file per page in `src/content/docs/<product>/<section>/<page>.md`, with front matter
+  (`title`, `description`). Supported syntax: headings, lists, tables, code fences (```` ```bash title="file" ````),
+  images (`![alt](/docs/<product>/images/x.jpg "caption")`), callouts (`:::note|tip|warning|danger Title … :::`),
+  numbered steps (`:::steps` + `### Step`), link cards (`:::cards`), checklists (`- [x]`), and internal links
+  `[text](doc:admin/overview#anchor)`. Parser: `src/lib/docs/markdown.ts`.
+- **Sidebar order / sections / tabs** — `src/lib/docs/products.ts` (also drives Previous / Next and the sitemap).
+  A page must be listed there **and** have a `.md` file; `next build` prerenders every page.
+- **Images** — `public/docs/<product>/images/` (screenshots; `app-*` files render as a phone gallery).
+- **Add a product's docs** — add an entry to `docsProducts` in `src/lib/docs/products.ts` and a folder in
+  `src/content/docs/<slug>/`.
+- Components: `src/components/docs/` (top bar, sidebar, table of contents, search, Markdown blocks).
