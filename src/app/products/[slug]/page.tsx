@@ -28,6 +28,7 @@ import { PurchaseBox } from "@/components/PurchaseBox";
 import { Faq } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
 import { ProductCard } from "@/components/ProductCard";
+import { ProductShowcase } from "@/components/ProductShowcase";
 import { categoryLabel, getProduct, products } from "@/data/products";
 import { licenseRows, productContent } from "@/data/product-content";
 import { testimonials } from "@/data/content";
@@ -143,7 +144,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
         <div className="container-x grid gap-6 py-8 lg:grid-cols-[minmax(0,1fr)_380px] lg:grid-rows-[auto_1fr] lg:gap-x-8 lg:py-10">
             <div className="min-w-0 rounded-2xl border border-line bg-white p-3 sm:p-4 lg:col-start-1 lg:row-start-1">
               {p.image ? (
-                <div className="relative aspect-[16/9] overflow-hidden rounded-xl">
+                <div className={`relative overflow-hidden rounded-xl ${p.bannerArt ? "aspect-[923/470]" : "aspect-[16/9]"}`}>
                   <Image
                     src={p.image}
                     alt={`${p.name} – ${p.tagline}`}
@@ -154,15 +155,20 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
                     sizes="(min-width: 1480px) 1000px, (min-width: 1024px) 66vw, 100vw"
                     className="object-cover"
                   />
-                  <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent" />
-                  <p aria-hidden="true" className="absolute right-4 bottom-4 left-4 flex flex-wrap items-center gap-2">
-                    <span className="rounded-lg bg-white px-3 py-1.5 text-base font-bold text-brand-800 sm:text-lg">{p.name}</span>
-                    {p.chips.slice(0, 4).map((c) => (
-                      <span key={c} className="hidden rounded-md bg-white/90 px-2.5 py-1 text-[13px] font-medium text-ink sm:inline">
-                        {c}
-                      </span>
-                    ))}
-                  </p>
+                  {/* Designed banners (bannerArt) already carry the name and chips */}
+                  {!p.bannerArt && (
+                    <>
+                      <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent" />
+                      <p aria-hidden="true" className="absolute right-4 bottom-4 left-4 flex flex-wrap items-center gap-2">
+                        <span className="rounded-lg bg-white px-3 py-1.5 text-base font-bold text-brand-800 sm:text-lg">{p.name}</span>
+                        {p.chips.slice(0, 4).map((c) => (
+                          <span key={c} className="hidden rounded-md bg-white/90 px-2.5 py-1 text-[13px] font-medium text-ink sm:inline">
+                            {c}
+                          </span>
+                        ))}
+                      </p>
+                    </>
+                  )}
                 </div>
               ) : (
                 <Image
@@ -181,7 +187,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
                 {[
                   { href: "#overview", label: "Preview", Icon: Eye },
                   { href: "#features", label: "Screenshots", Icon: GalleryHorizontalEnd },
-                  { href: "/documentation", label: "Documentation", Icon: BookOpen },
+                  { href: c.docsUrl ?? "/documentation", label: "Documentation", Icon: BookOpen },
                 ].map(({ href, label, Icon }) => (
                   <Link
                     key={label}
@@ -196,35 +202,11 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
             </div>
 
           {/* Sidebar – directly after the preview on mobile, right column on desktop */}
-          <aside aria-label="Purchase options" className="space-y-6 lg:col-start-2 lg:row-span-2 lg:row-start-1">
-            <PurchaseBox slug={p.slug} name={p.name} title={p.title} image={p.image} price={p.price} oldPrice={p.oldPrice} extendedPrice={extendedPrice} />
-            <section aria-labelledby="info-title" className="rounded-2xl border border-line bg-white">
-              <h2 id="info-title" className="border-b border-line px-5 py-4 text-base font-semibold text-ink">
-                Product Information
-              </h2>
-              <dl className="space-y-4 p-5 text-sm">
-                {[
-                  ["Current Version", p.version],
-                  ["Release Date", p.releaseDate],
-                  ["Software Version", p.platform],
-                  ["Last Update", p.lastUpdate],
-                  ["Category", categoryLabel(p.category)],
-                ].map(([k, v]) => (
-                  <div key={k} className="grid grid-cols-2 gap-3">
-                    <dt className="relative pr-3 text-ink after:absolute after:right-0 after:content-[':']">{k}</dt>
-                    <dd className="text-right text-ink">{v}</dd>
-                  </div>
-                ))}
-                <div className="grid grid-cols-2 gap-3">
-                  <dt className="relative pr-3 text-ink after:absolute after:right-0 after:content-[':']">Change Logs</dt>
-                  <dd className="text-right">
-                    <Link href="/documentation" className="rounded bg-brand-50 px-2 py-1 text-brand-700 hover:underline">
-                      View Change Log
-                    </Link>
-                  </dd>
-                </div>
-              </dl>
-            </section>
+          <aside aria-label="Purchase options" className="lg:col-start-2 lg:row-span-2 lg:row-start-1">
+            {/* Licence / purchase card stays in view while the long product content scrolls (below the 80px site header) */}
+            <div className="lg:sticky lg:top-24 lg:max-h-[calc(100dvh-7rem)] lg:overflow-y-auto lg:overscroll-contain lg:rounded-2xl">
+              <PurchaseBox slug={p.slug} name={p.name} title={p.title} image={p.image} price={p.price} oldPrice={p.oldPrice} extendedPrice={extendedPrice} />
+            </div>
           </aside>
 
             <div className="min-w-0 rounded-2xl border border-line bg-white lg:col-start-1 lg:row-start-2">
@@ -276,7 +258,19 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
                       ))}
                     </ul>
                     <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                      {["Website", "Admin Panel"].map((l) => (
+                      {c.demoLinks?.map((d) => (
+                        <a
+                          key={d.href}
+                          href={d.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-brand-600 bg-brand-600 py-3 text-sm font-semibold text-white hover:bg-brand-700"
+                        >
+                          {d.label} <ExternalLink aria-hidden="true" className="size-4" />
+                          <span className="sr-only">(opens in a new tab)</span>
+                        </a>
+                      ))}
+                      {!c.demoLinks?.length && ["Website", "Admin Panel"].map((l) => (
                         <Link
                           key={l}
                           href={`/contact-us?product=${p.slug}&demo=${encodeURIComponent(l)}`}
@@ -287,6 +281,10 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
                       ))}
                     </div>
 
+                    {c.demoNote && <p className="mt-4 rounded-lg border border-brand-100 bg-brand-50 p-3 text-sm leading-6 text-ink">{c.demoNote}</p>}
+
+                    {c.credentials.length > 0 && (
+                    <>
                     <h3 className="mt-8 text-lg font-medium text-ink">Demo Credentials</h3>
                     <p className="mt-1 text-sm text-muted italic">Create your own user account for a better user experience.</p>
                     <ul className="mt-4 grid gap-3 sm:grid-cols-3">
@@ -309,9 +307,16 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
                         </li>
                       ))}
                     </ul>
+                    </>
+                    )}
                   </section>
                 )}
 
+                {/* Image-led product story (premium layout) replaces the text feature sections below */}
+                {c.showcase && <ProductShowcase name={p.name} sections={c.showcase} />}
+
+                {!c.showcase && (
+                <>
                 {/* Tech stack */}
                 <section aria-labelledby="tech-title">
                   <h2 id="tech-title" className="border-b border-line pb-2 text-xl font-medium text-ink">
@@ -358,6 +363,57 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
                     ))}
                   </ul>
                 </section>
+
+                {/* Screenshots (optional, per product) */}
+                {c.screens && c.screens.length > 0 && (
+                  <section aria-labelledby="screens-title">
+                    <h2 id="screens-title" className="border-b border-line pb-2 text-xl font-medium text-ink">
+                      {p.name} Screenshots
+                    </h2>
+                    <ul className="mt-4 flex snap-x gap-3 overflow-x-auto pb-2">
+                      {c.screens.map((s) => (
+                        <li key={s.src} className={`shrink-0 snap-start ${s.wide ? "w-[420px] max-w-[85vw]" : "w-[150px]"}`}>
+                          <Image
+                            src={s.src}
+                            alt={s.alt}
+                            width={s.wide ? 1440 : 540}
+                            height={s.wide ? 860 : 960}
+                            quality={75}
+                            sizes={s.wide ? "420px" : "150px"}
+                            className="h-auto w-full rounded-xl border border-line bg-white"
+                          />
+                          <p className="mt-1.5 text-center text-xs text-muted">{s.alt}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                )}
+
+                {/* Feature list per app / panel (optional, per product) */}
+                {c.features && c.features.length > 0 && (
+                  <section aria-labelledby="feat-title" className="space-y-8">
+                    <h2 id="feat-title" className="border-b border-line pb-2 text-xl font-medium text-ink">
+                      {p.name} Features
+                    </h2>
+                    {c.features.map((g) => (
+                      <div key={g.title}>
+                        <h3 className="text-lg font-semibold text-ink">{g.title}</h3>
+                        {g.subtitle && <p className="mt-1 text-sm text-muted">{g.subtitle}</p>}
+                        <ul className="mt-3 grid gap-3 sm:grid-cols-2">
+                          {g.items.map((it) => (
+                            <li key={it.title} className="flex gap-3 rounded-xl border border-line bg-white p-4">
+                              <CircleCheck aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-brand-600" />
+                              <span>
+                                <span className="block text-[15px] font-semibold text-ink">{it.title}</span>
+                                <span className="mt-1 block text-sm leading-6 text-body">{it.text}</span>
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </section>
+                )}
 
                 {/* Brand banner */}
                 <section
@@ -430,6 +486,9 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
                   </section>
                 )}
 
+                </>
+                )}
+
                 {/* Installation CTA */}
                 <section id="support" aria-labelledby="help-title" className="scroll-mt-24 rounded-3xl bg-brand-50 p-4 sm:p-6">
                   <h2 id="help-title" className="text-center text-2xl font-semibold text-ink sm:text-3xl">
@@ -449,6 +508,8 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
                   </div>
                 </section>
 
+                {!c.showcase && (
+                <>
                 {/* Requirements */}
                 <section aria-labelledby="req-title">
                   <h2 id="req-title" className="text-center text-2xl font-semibold text-ink sm:text-3xl">
@@ -485,6 +546,9 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
                     ))}
                   </ul>
                 </section>
+
+                </>
+                )}
 
                 {/* Revenue */}
                 {c.revenue.length > 0 && (

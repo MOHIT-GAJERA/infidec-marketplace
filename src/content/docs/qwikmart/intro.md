@@ -1,6 +1,6 @@
 ---
 title: Introduction
-description: QwikMart is a ready-to-launch hyperlocal quick-commerce and eCommerce platform — Firebase backend, Admin & Store panels, Next.js website and two Flutter apps.
+description: QwikMart is a ready-to-launch All-in-One Quick Commerce & eCommerce Platform with Multi-Store & Multi-Country — Firebase backend, Admin & Store panels, Next.js website and two Flutter apps.
 ---
 
 Welcome to the **QwikMart** documentation. QwikMart lets you run a 10-minute grocery & essentials delivery business (quick commerce) and a regular online store (eCommerce, delivered in 1–4 days) from **one** platform, with multiple stores, delivery zones and countries.

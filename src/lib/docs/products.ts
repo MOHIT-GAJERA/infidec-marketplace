@@ -43,25 +43,29 @@ export type DocsProduct = {
 const qwikmart: DocsProduct = {
   slug: "qwikmart",
   name: "QwikMart",
-  tagline: "Complete guide for the QwikMart quick-commerce & grocery delivery platform",
+  tagline:
+    "Complete guide for the QwikMart quick-commerce & grocery delivery platform",
   description:
     "Install, configure, brand and publish QwikMart: Firebase backend, Admin & Store panels, Next.js website, Flutter customer app and Flutter delivery partner app.",
   version: "1.0.1",
   updated: "21 October 2026",
   colors: { accent: "#0E9623", ink: "#0B6B1B", soft: "#E6F4E9" },
   logo: "/docs/qwikmart/logo.png",
+  productUrl: "/products/qwikmart-all-in-one-quick-commerce-ecommerce-platform",
   sections: [
     {
       key: "intro",
       title: "Introduction",
-      description: "What QwikMart is, what is included in the package and how the pieces fit together.",
+      description:
+        "What QwikMart is, what is included in the package and how the pieces fit together.",
       icon: "BookOpen",
       items: [{ title: "Introduction", slug: "intro" }],
     },
     {
       key: "admin",
       title: "Admin Panel",
-      description: "Set up Firebase, deploy the backend and manage products, orders, riders, payments and settings.",
+      description:
+        "Set up Firebase, deploy the backend and manage products, orders, riders, payments and settings.",
       icon: "LayoutDashboard",
       badge: "Start here",
       tab: true,
@@ -74,13 +78,31 @@ const qwikmart: DocsProduct = {
           children: [
             { title: "Installation Overview", slug: "installation/overview" },
             { title: "Requirements", slug: "installation/requirements" },
-            { title: "Create the Firebase Project", slug: "installation/firebase-project" },
-            { title: "Deploy the Backend", slug: "installation/backend-deploy" },
-            { title: "Admin Panel Installation", slug: "installation/admin-panel" },
-            { title: "Environment Configuration", slug: "installation/environment-configuration" },
-            { title: "Create the Super Admin", slug: "installation/super-admin" },
+            {
+              title: "Create the Firebase Project",
+              slug: "installation/firebase-project",
+            },
+            {
+              title: "Deploy the Backend",
+              slug: "installation/backend-deploy",
+            },
+            {
+              title: "Admin Panel Installation",
+              slug: "installation/admin-panel",
+            },
+            {
+              title: "Environment Configuration",
+              slug: "installation/environment-configuration",
+            },
+            {
+              title: "Create the Super Admin",
+              slug: "installation/super-admin",
+            },
             { title: "Hosting, Domain & SSL", slug: "installation/hosting" },
-            { title: "Setup Guide (First 10 Steps)", slug: "installation/setup-guide" },
+            {
+              title: "Setup Guide (First 10 Steps)",
+              slug: "installation/setup-guide",
+            },
             { title: "Localhost Setup", slug: "installation/localhost-setup" },
             { title: "Backups & Monitoring", slug: "installation/backups" },
           ],
@@ -103,9 +125,15 @@ const qwikmart: DocsProduct = {
             { title: "Payment Gateways", slug: "admin/payment-gateways" },
             { title: "SMTP / Email", slug: "admin/smtp-settings" },
             { title: "SMS Gateway & OTP", slug: "admin/sms-settings" },
-            { title: "Push Notifications (FCM)", slug: "admin/push-notifications" },
+            {
+              title: "Push Notifications (FCM)",
+              slug: "admin/push-notifications",
+            },
             { title: "AI (Google Gemini)", slug: "admin/ai-settings" },
-            { title: "Wallet, Referral & Delivery", slug: "admin/wallet-referral-delivery" },
+            {
+              title: "Wallet, Referral & Delivery",
+              slug: "admin/wallet-referral-delivery",
+            },
           ],
         },
         {
@@ -119,7 +147,10 @@ const qwikmart: DocsProduct = {
             { title: "Notifications & Email", slug: "admin/notifications" },
             { title: "Chat & Contact Messages", slug: "admin/chat-contact" },
             { title: "Reports", slug: "admin/reports" },
-            { title: "Staff, Roles & Permissions", slug: "admin/roles-permissions" },
+            {
+              title: "Staff, Roles & Permissions",
+              slug: "admin/roles-permissions",
+            },
             { title: "Store Panel", slug: "admin/store-panel" },
           ],
         },
@@ -128,26 +159,48 @@ const qwikmart: DocsProduct = {
     {
       key: "app-customer",
       title: "Customer App",
-      description: "Configure, re-brand and publish the Flutter customer app for Android (and iOS).",
+      description:
+        "Configure, re-brand and publish the Flutter customer app for Android (and iOS).",
       icon: "Smartphone",
       badge: "Android & iOS",
       tab: true,
       items: [
         { title: "App Prerequisites", slug: "app-customer/prerequisites" },
         { title: "Firebase Setup", slug: "app-customer/firebase-setup" },
-        { title: "Change Package Name", slug: "app-customer/change-package-name" },
+        {
+          title: "Change Package Name",
+          slug: "app-customer/change-package-name",
+        },
         { title: "Change App Name", slug: "app-customer/change-app-name" },
-        { title: "Change App Logo & Splash", slug: "app-customer/change-app-logo" },
-        { title: "Change Theme Colour & Font", slug: "app-customer/change-theme" },
+        {
+          title: "Change App Logo & Splash",
+          slug: "app-customer/change-app-logo",
+        },
+        {
+          title: "Change Theme Colour & Font",
+          slug: "app-customer/change-theme",
+        },
         { title: "Onboarding Images & Text", slug: "app-customer/onboarding" },
         { title: "Configure Home Screen", slug: "app-customer/home-screen" },
-        { title: "Login Methods & Phone OTP", slug: "app-customer/auth-methods" },
+        {
+          title: "Login Methods & Phone OTP",
+          slug: "app-customer/auth-methods",
+        },
         { title: "Maps & Location", slug: "app-customer/maps-location" },
-        { title: "Payment Gateway (Razorpay)", slug: "app-customer/payment-gateway" },
+        {
+          title: "Payment Gateway (Razorpay)",
+          slug: "app-customer/payment-gateway",
+        },
         { title: "Push Notifications", slug: "app-customer/notifications" },
         { title: "Manage Languages", slug: "app-customer/languages" },
-        { title: "About, Policy & Contact Pages", slug: "app-customer/content-pages" },
-        { title: "App Version & Store Links", slug: "app-customer/app-version" },
+        {
+          title: "About, Policy & Contact Pages",
+          slug: "app-customer/content-pages",
+        },
+        {
+          title: "App Version & Store Links",
+          slug: "app-customer/app-version",
+        },
         { title: "Run the App", slug: "app-customer/run-the-app" },
         { title: "Release & Play Store", slug: "app-customer/deployment" },
       ],
@@ -155,17 +208,30 @@ const qwikmart: DocsProduct = {
     {
       key: "app-delivery",
       title: "Delivery Boy App",
-      description: "Set up and publish the Flutter delivery partner app: registration, live location and the delivery workflow.",
+      description:
+        "Set up and publish the Flutter delivery partner app: registration, live location and the delivery workflow.",
       icon: "Bike",
       badge: "Android & iOS",
       tab: true,
       items: [
         { title: "App Prerequisites", slug: "app-delivery/prerequisites" },
         { title: "Firebase Setup", slug: "app-delivery/firebase-setup" },
-        { title: "Change Package Name", slug: "app-delivery/change-package-name" },
-        { title: "Change App Name, Logo & Colour", slug: "app-delivery/branding" },
-        { title: "Rider Registration & Approval", slug: "app-delivery/registration" },
-        { title: "Live Location (Foreground Service)", slug: "app-delivery/location-tracking" },
+        {
+          title: "Change Package Name",
+          slug: "app-delivery/change-package-name",
+        },
+        {
+          title: "Change App Name, Logo & Colour",
+          slug: "app-delivery/branding",
+        },
+        {
+          title: "Rider Registration & Approval",
+          slug: "app-delivery/registration",
+        },
+        {
+          title: "Live Location (Foreground Service)",
+          slug: "app-delivery/location-tracking",
+        },
         { title: "Delivery Workflow & OTP", slug: "app-delivery/workflow" },
         { title: "Earnings, Cash & Wallet", slug: "app-delivery/earnings" },
         { title: "Run the App", slug: "app-delivery/run-the-app" },
@@ -175,7 +241,8 @@ const qwikmart: DocsProduct = {
     {
       key: "web",
       title: "Web Portal",
-      description: "Install, configure and deploy the Next.js customer website on Firebase App Hosting or a VPS.",
+      description:
+        "Install, configure and deploy the Next.js customer website on Firebase App Hosting or a VPS.",
       icon: "Globe",
       badge: "Next.js",
       tab: true,
@@ -198,7 +265,8 @@ const qwikmart: DocsProduct = {
     {
       key: "support",
       title: "Support",
-      description: "How to get help, what support covers and how to report an issue.",
+      description:
+        "How to get help, what support covers and how to report an issue.",
       icon: "LifeBuoy",
       tab: true,
       items: [{ title: "Support", slug: "support" }],
@@ -206,7 +274,8 @@ const qwikmart: DocsProduct = {
     {
       key: "faqs",
       title: "FAQs",
-      description: "Answers to the most common setup, Firebase, payment and Play Store questions.",
+      description:
+        "Answers to the most common setup, Firebase, payment and Play Store questions.",
       icon: "CircleHelp",
       tab: true,
       items: [{ title: "FAQs", slug: "faqs" }],

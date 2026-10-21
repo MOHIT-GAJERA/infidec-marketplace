@@ -21,26 +21,31 @@ export function ProductCard({ product: p, headingLevel = "h3", eager = false, sr
   return (
     <article className="group relative flex flex-col [contain-intrinsic-size:auto_420px] [content-visibility:auto] overflow-hidden rounded-xl border border-line bg-white shadow-card transition-shadow hover:shadow-float">
       <div className="relative aspect-[2/1] overflow-hidden bg-gray-100">
-        {p.image && !src ? (
+        {/* A finished marketing banner (bannerArt) always wins over the generated inline thumbnail */}
+        {p.image && (!src || p.bannerArt) ? (
           <>
             <Image
               src={p.image}
               alt={`${p.name} – ${p.tagline}`}
-              width={1280}
-              height={723}
+              width={p.bannerArt ? 923 : 1280}
+              height={p.bannerArt ? 470 : 723}
               quality={60}
               sizes="(min-width: 1280px) 340px, (min-width: 640px) 50vw, 100vw"
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
               loading={eager ? "eager" : "lazy"}
               fetchPriority={eager ? "high" : "auto"}
             />
-            <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/55 to-transparent" />
-            <span
-              aria-hidden="true"
-              className="absolute bottom-2.5 left-2.5 rounded-lg bg-white/95 px-2.5 py-1 text-[13px] font-semibold text-brand-800 shadow-sm"
-            >
-              {p.name}
-            </span>
+            {!p.bannerArt && (
+              <>
+                <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/55 to-transparent" />
+                <span
+                  aria-hidden="true"
+                  className="absolute bottom-2.5 left-2.5 rounded-lg bg-white/95 px-2.5 py-1 text-[13px] font-semibold text-brand-800 shadow-sm"
+                >
+                  {p.name}
+                </span>
+              </>
+            )}
           </>
         ) : (
           <Image

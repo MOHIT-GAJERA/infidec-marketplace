@@ -1,3 +1,5 @@
+import { qwikmartProduct } from "./qwikmart.ts"; // explicit extension: scripts/generate-thumbs.mts loads this file with Node
+
 export type ProductType = "app" | "addon";
 
 export type CategoryKey =
@@ -55,6 +57,8 @@ export type Product = {
   integrations: string[];
   /** Photo cover generated with Higgsfield (falls back to the SVG thumbnail). */
   image?: string;
+  /** `image` is a finished 923×470 marketing banner (shown uncropped, without the name/chip overlay). */
+  bannerArt?: boolean;
 };
 
 export const categories: { key: CategoryKey; label: string }[] = [
@@ -69,10 +73,11 @@ const appStack = ["Flutter", "Laravel", "Next.js", "MySQL", "Firebase"];
 const appIntegrations = ["Firebase Cloud Messaging", "SMTP Email", "SMS Gateway Integration", "Google Gemini AI"];
 
 export const products: Product[] = [
+  qwikmartProduct,
   {
-    slug: "freshcart-hyperlocal-grocery-organic-food-delivery",
+    slug: "freshcart-All-in-One-grocery-organic-food-delivery",
     name: "FreshCart",
-    title: "FreshCart - Hyperlocal Grocery & Organic Food Delivery Platform with Multi-Store & Multi-Country",
+    title: "FreshCart - All-in-One Grocery & Organic Food Delivery Platform with Multi-Store & Multi-Country",
     type: "app",
     category: "ecommerce-marketplace",
     featured: true,
@@ -85,7 +90,7 @@ export const products: Product[] = [
     tagline: "Quick Commerce & Organic Grocery Platform with Multi-Store",
     chips: ["Customer App", "Delivery Boy App", "Website", "Admin Panel", "Store Panel"],
     summary:
-      "Launch a hyperlocal organic grocery and healthy food delivery business with customer app, delivery app, Next.js storefront and Laravel admin panel.",
+      "Launch a All-in-One organic grocery and healthy food delivery business with customer app, delivery app, Next.js storefront and Laravel admin panel.",
     version: "1.3.1",
     releaseDate: "10-08-2026",
     lastUpdate: "26-09-2026",
@@ -415,7 +420,7 @@ export const products: Product[] = [
 
 /** Product → Higgsfield photo (public/images). Add-ons keep their SVG artwork. */
 const productImages: Record<string, string> = {
-  "freshcart-hyperlocal-grocery-organic-food-delivery": "grocery",
+  "freshcart-All-in-One-grocery-organic-food-delivery": "grocery",
   "nutriplan-ai-diet-planner-calorie-tracker": "diet",
   "fitbite-healthy-meal-subscription-tiffin-service": "tiffin",
   "homechef-multi-vendor-home-cooked-food-marketplace": "cooking",

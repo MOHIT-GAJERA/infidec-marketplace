@@ -59,6 +59,11 @@ export default async function DocsLanding({ params }: PageProps<"/docs/[product]
             <Link href={docHref(product.slug, "installation/requirements")} className="inline-flex items-center gap-2 rounded-xl border border-white/60 px-6 py-3 font-semibold text-white hover:bg-white/10">
               Installation Guide
             </Link>
+            {product.productUrl && (
+              <Link href={product.productUrl} className="inline-flex items-center gap-2 rounded-xl border border-white/60 px-6 py-3 font-semibold text-white hover:bg-white/10">
+                View Product
+              </Link>
+            )}
           </div>
         </div>
         <svg aria-hidden="true" viewBox="0 0 1440 60" preserveAspectRatio="none" className="block h-8 w-full text-white sm:h-12">

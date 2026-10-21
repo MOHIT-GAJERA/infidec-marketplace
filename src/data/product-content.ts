@@ -1,5 +1,6 @@
 import type { FaqItem } from "@/components/Faq";
 import type { Product } from "./products";
+import { QWIKMART_SLUG, qwikmartContent } from "./qwikmart";
 
 export type Card = { title: string; text: string };
 
@@ -14,7 +15,23 @@ export type ProductContent = {
   youGet: string[];
   revenue: Card[];
   faqs: FaqItem[];
+  /** Optional per-product extras (QwikMart): feature list per app/panel, screenshots, docs links, demo note. */
+  features?: { title: string; subtitle?: string; items: Card[] }[];
+  screens?: { src: string; alt: string; wide?: boolean }[];
+  docsUrl?: string;
+  changelogUrl?: string;
+  demoNote?: string;
+  /** Live demo links (replace the "Request … Demo" buttons when present). */
+  demoLinks?: { label: string; href: string }[];
+  /**
+   * Image-led product story (premium layout). When present it replaces the text feature sections
+   * (why / screens / features / problems / ecosystem / requirements / you-get) on the product page.
+   */
+  showcase?: ShowcaseSection[];
 };
+
+export type ShowcaseImage = { src: string; alt: string; width: number; height: number };
+export type ShowcaseSection = { id: string; label: string; title: string; intro?: string; images: ShowcaseImage[] };
 
 export const licenseRows: { label: string; regular: boolean; extended: boolean }[] = [
   { label: "Lifetime License Validity & FREE Update", regular: true, extended: true },
@@ -28,6 +45,7 @@ export const licenseRows: { label: string; regular: boolean; extended: boolean }
 
 export function productContent(p: Product): ProductContent {
   const n = p.name;
+  if (p.slug === QWIKMART_SLUG) return qwikmartContent;
 
   if (p.type === "addon") {
     return {
