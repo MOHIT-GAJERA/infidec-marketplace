@@ -13,8 +13,7 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
   compress: true,
-  // Tailwind output is small; inlining removes the render-blocking stylesheet request (better FCP/LCP).
-  experimental: { inlineCss: true },
+
   images: {
     formats: ["image/avif", "image/webp"],
     qualities: [60, 75],
