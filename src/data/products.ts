@@ -1,4 +1,5 @@
 import { qwikmartProduct } from "./qwikmart.ts"; // explicit extension: scripts/generate-thumbs.mts loads this file with Node
+import { go4foodieProduct } from "./go4foodie.ts";
 
 export type ProductType = "app" | "addon";
 
@@ -74,6 +75,7 @@ const appIntegrations = ["Firebase Cloud Messaging", "SMTP Email", "SMS Gateway 
 
 export const products: Product[] = [
   qwikmartProduct,
+  go4foodieProduct,
   {
     slug: "freshcart-All-in-One-grocery-organic-food-delivery",
     name: "FreshCart",
