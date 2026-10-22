@@ -18,7 +18,7 @@ export type DocsSection = {
   /** Short text for the landing-page card. */
   description: string;
   /** lucide icon name used on the landing page / top bar. */
-  icon: "LayoutDashboard" | "Smartphone" | "Bike" | "Globe" | "LifeBuoy" | "CircleHelp" | "BookOpen" | "History";
+  icon: "LayoutDashboard" | "Smartphone" | "Bike" | "Globe" | "LifeBuoy" | "CircleHelp" | "BookOpen" | "History" | "Code";
   badge?: string;
   /** Show as a tab in the docs top bar. */
   tab?: boolean;
@@ -37,6 +37,10 @@ export type DocsProduct = {
   logo: string;
   /** Marketplace product page or live demo (optional). */
   productUrl?: string;
+  /** Landing-page "Quick start" steps (default: the QwikMart Firebase → panels → apps steps). */
+  quickStart?: { title: string; text: string; slug: string }[];
+  /** Target of the landing-page "Installation Guide" button (default "installation/requirements"). */
+  installSlug?: string;
   sections: DocsSection[];
 };
 
@@ -283,7 +287,201 @@ const qwikmart: DocsProduct = {
   ],
 };
 
-export const docsProducts: Record<string, DocsProduct> = { qwikmart };
+const go4foodie: DocsProduct = {
+  slug: "go4foodie",
+  name: "Go4Foodie",
+  tagline:
+    "Complete guide for the Go4Foodie restaurant POS, QR table ordering & online food ordering platform",
+  description:
+    "Install, configure, brand and publish Go4Foodie: Firebase backend, Flutter Web Admin Panel, Next.js customer website and the Flutter mobile app with Customer, Restaurant (POS) and Owner modes.",
+  version: "1.0.0",
+  updated: "22 October 2026",
+  colors: { accent: "#E8640F", ink: "#B4500A", soft: "#FDEDDF" },
+  logo: "/docs/go4foodie/logo.png",
+  productUrl: "/products/go4foodie-restaurant-pos-qr-online-ordering-platform",
+  installSlug: "installation/requirements",
+  quickStart: [
+    {
+      title: "Create Firebase & deploy the backend",
+      text: "Create your Firebase project on the Blaze plan, store the secrets and deploy the api Cloud Function, rules and Hosting.",
+      slug: "installation/firebase-project",
+    },
+    {
+      title: "Install the Admin Panel & website",
+      text: "Build the Flutter Web admin, create your Owner login and put the Next.js website on Firebase App Hosting.",
+      slug: "installation/admin-panel",
+    },
+    {
+      title: "Brand & publish the mobile app",
+      text: "Point the app at your backend, change package name, logo and colours, then upload it to Google Play.",
+      slug: "app/prerequisites",
+    },
+  ],
+  sections: [
+    {
+      key: "intro",
+      title: "Introduction",
+      description: "What Go4Foodie is, what is included in the package and how the pieces fit together.",
+      icon: "BookOpen",
+      items: [{ title: "Introduction", slug: "intro" }],
+    },
+    {
+      key: "admin",
+      title: "Admin Panel",
+      description:
+        "Set up Firebase, deploy the backend and run the restaurant: floor, POS, orders, reservations, menu, staff, reports and settings.",
+      icon: "LayoutDashboard",
+      badge: "Start here",
+      tab: true,
+      items: [
+        { title: "Overview", slug: "admin/overview" },
+        { title: "Demo Instructions", slug: "admin/demo-instructions" },
+        { title: "Third-Party Service Costs", slug: "admin/third-party-costs" },
+        {
+          title: "Installation",
+          children: [
+            { title: "Installation Overview", slug: "installation/overview" },
+            { title: "Requirements", slug: "installation/requirements" },
+            { title: "Create the Firebase Project", slug: "installation/firebase-project" },
+            { title: "Deploy the Backend", slug: "installation/backend-deploy" },
+            { title: "Secrets & Environment", slug: "installation/environment-configuration" },
+            { title: "Admin Panel Installation", slug: "installation/admin-panel" },
+            { title: "Import Existing Data", slug: "installation/data-migration" },
+            { title: "Create Admin Users", slug: "installation/admin-users" },
+            { title: "Hosting, Domains & SSL", slug: "installation/hosting" },
+            { title: "Setup Guide (First 10 Steps)", slug: "installation/setup-guide" },
+            { title: "Localhost Setup", slug: "installation/localhost-setup" },
+            { title: "Backups & Monitoring", slug: "installation/backups" },
+          ],
+        },
+        {
+          title: "Restaurant Setup",
+          children: [
+            { title: "Restaurant Profile & Settings", slug: "admin/settings" },
+            { title: "Outlets", slug: "admin/outlets" },
+            { title: "Menu & Categories", slug: "admin/menu" },
+            { title: "Tables & QR Codes", slug: "admin/tables" },
+          ],
+        },
+        {
+          title: "Front of House",
+          children: [
+            { title: "Live Floor Plan", slug: "admin/floor" },
+            { title: "POS & Table Billing", slug: "admin/pos" },
+            { title: "Orders & Order Flow", slug: "admin/orders" },
+            { title: "Reservations", slug: "admin/reservations" },
+          ],
+        },
+        {
+          title: "Business",
+          children: [
+            { title: "Dashboard", slug: "admin/dashboard" },
+            { title: "Staff & Duty Status", slug: "admin/staff" },
+            { title: "Customers", slug: "admin/customers" },
+            { title: "Gift Cards & Coupons", slug: "admin/gift-cards" },
+            { title: "Inventory", slug: "admin/inventory" },
+            { title: "Transactions", slug: "admin/transactions" },
+            { title: "Reports", slug: "admin/reports" },
+            { title: "Table Analytics & History", slug: "admin/table-analytics" },
+            { title: "Notifications", slug: "admin/notifications" },
+            { title: "Audit Log", slug: "admin/audit-log" },
+            { title: "Roles & Permissions", slug: "admin/roles-permissions" },
+          ],
+        },
+        {
+          title: "Integrations",
+          children: [
+            { title: "Payment Gateways", slug: "admin/payment-gateways" },
+            { title: "SMTP / Email", slug: "admin/smtp-settings" },
+            { title: "Customer Emails", slug: "admin/emails" },
+          ],
+        },
+      ],
+    },
+    {
+      key: "app",
+      title: "Mobile App",
+      description:
+        "One Flutter app with Customer, Restaurant (POS) and Owner modes: connect it to your backend, re-brand it and publish it.",
+      icon: "Smartphone",
+      badge: "Android & iOS",
+      tab: true,
+      items: [
+        { title: "App Prerequisites", slug: "app/prerequisites" },
+        { title: "Connect to Your Backend", slug: "app/api-configuration" },
+        { title: "Change Package Name", slug: "app/change-package-name" },
+        { title: "App Name, Logo & Splash", slug: "app/branding" },
+        { title: "Theme Colours & Fonts", slug: "app/change-theme" },
+        { title: "Customer App", slug: "app/customer" },
+        { title: "Restaurant App (POS)", slug: "app/restaurant" },
+        { title: "Owner App", slug: "app/owner" },
+        { title: "In-App Payments", slug: "app/payments" },
+        { title: "Run the App", slug: "app/run-the-app" },
+        { title: "Release & Play Store", slug: "app/deployment" },
+      ],
+    },
+    {
+      key: "web",
+      title: "Web Portal",
+      description:
+        "Install, configure and deploy the Next.js customer website — online ordering, QR table ordering, bookings and gift cards.",
+      icon: "Globe",
+      badge: "Next.js",
+      tab: true,
+      items: [
+        { title: "Overview", slug: "web/overview" },
+        { title: "Installation Steps", slug: "web/installation-steps" },
+        { title: "File Structure", slug: "web/file-structure" },
+        { title: "Configuration & Theming", slug: "web/configuration" },
+        { title: "Online Ordering & QR Tables", slug: "web/ordering" },
+        { title: "Checkout & Payments", slug: "web/payments" },
+        { title: "Deployment Guide", slug: "web/deployment" },
+      ],
+    },
+    {
+      key: "api",
+      title: "API Reference",
+      description:
+        "The REST API behind the website, mobile app and admin panel: authentication, every endpoint, the Firestore data model and errors.",
+      icon: "Code",
+      badge: "Developers",
+      tab: true,
+      items: [
+        { title: "API Overview & Auth", slug: "api/overview" },
+        { title: "Public Website API", slug: "api/public" },
+        { title: "Mobile API", slug: "api/mobile" },
+        { title: "Admin API", slug: "api/admin" },
+        { title: "Data Model (Firestore)", slug: "api/data-model" },
+        { title: "Errors & Status Codes", slug: "api/errors" },
+      ],
+    },
+    {
+      key: "changelog",
+      title: "Changelog",
+      description: "Release history of Go4Foodie.",
+      icon: "History",
+      items: [{ title: "Changelog", slug: "changelog" }],
+    },
+    {
+      key: "support",
+      title: "Support",
+      description: "How to get help, what support covers and how to report an issue.",
+      icon: "LifeBuoy",
+      tab: true,
+      items: [{ title: "Support", slug: "support" }],
+    },
+    {
+      key: "faqs",
+      title: "FAQs",
+      description: "Answers to the most common setup, Firebase, payment, POS and Play Store questions.",
+      icon: "CircleHelp",
+      tab: true,
+      items: [{ title: "FAQs", slug: "faqs" }],
+    },
+  ],
+};
+
+export const docsProducts: Record<string, DocsProduct> = { qwikmart, go4foodie };
 
 export const getDocsProduct = (slug: string): DocsProduct | undefined => docsProducts[slug];
 

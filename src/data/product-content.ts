@@ -1,6 +1,7 @@
 import type { FaqItem } from "@/components/Faq";
 import type { Product } from "./products";
 import { QWIKMART_SLUG, qwikmartContent } from "./qwikmart";
+import { GO4FOODIE_SLUG, go4foodieContent } from "./go4foodie";
 
 export type Card = { title: string; text: string };
 
@@ -46,6 +47,7 @@ export const licenseRows: { label: string; regular: boolean; extended: boolean }
 export function productContent(p: Product): ProductContent {
   const n = p.name;
   if (p.slug === QWIKMART_SLUG) return qwikmartContent;
+  if (p.slug === GO4FOODIE_SLUG) return go4foodieContent;
 
   if (p.type === "addon") {
     return {

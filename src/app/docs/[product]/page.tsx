@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, Bike, BookOpen, CircleHelp, Globe, History, LayoutDashboard, LifeBuoy, Mail, Smartphone } from "lucide-react";
+import { ArrowRight, Bike, BookOpen, CircleHelp, Code, Globe, History, LayoutDashboard, LifeBuoy, Mail, Smartphone } from "lucide-react";
 import { JsonLd } from "@/components/JsonLd";
 import { docHref, getDocsProduct, sectionHref, type DocsSection } from "@/lib/docs/products";
 import { absUrl, site } from "@/lib/site";
 
-const ICONS: Record<DocsSection["icon"], typeof BookOpen> = { LayoutDashboard, Smartphone, Bike, Globe, LifeBuoy, CircleHelp, BookOpen, History };
+const ICONS: Record<DocsSection["icon"], typeof BookOpen> = { LayoutDashboard, Smartphone, Bike, Globe, LifeBuoy, CircleHelp, BookOpen, History, Code };
 
 export async function generateMetadata({ params }: PageProps<"/docs/[product]">): Promise<Metadata> {
   const product = getDocsProduct((await params).product);
@@ -26,11 +26,14 @@ export default async function DocsLanding({ params }: PageProps<"/docs/[product]
   const intro = docHref(product.slug, "intro");
   const cards = product.sections.filter((s) => !["intro", "changelog"].includes(s.key));
 
-  const quickStart = [
-    { title: "Create Firebase & deploy the backend", text: "Create your Firebase project on the Blaze plan, then deploy Cloud Functions, rules and indexes.", href: docHref(product.slug, "installation/firebase-project") },
-    { title: "Install the Admin Panel & website", text: "Configure the environment, create your Super Admin and host both on Firebase App Hosting.", href: docHref(product.slug, "installation/admin-panel") },
-    { title: "Brand & publish the apps", text: "Change package name, logo and colours, connect Firebase and upload to Google Play.", href: docHref(product.slug, "app-customer/prerequisites") },
-  ];
+  // Per-product quick start (DocsProduct.quickStart); the default matches the QwikMart docs.
+  const quickStart = (
+    product.quickStart ?? [
+      { title: "Create Firebase & deploy the backend", text: "Create your Firebase project on the Blaze plan, then deploy Cloud Functions, rules and indexes.", slug: "installation/firebase-project" },
+      { title: "Install the Admin Panel & website", text: "Configure the environment, create your Super Admin and host both on Firebase App Hosting.", slug: "installation/admin-panel" },
+      { title: "Brand & publish the apps", text: "Change package name, logo and colours, connect Firebase and upload to Google Play.", slug: "app-customer/prerequisites" },
+    ]
+  ).map((s) => ({ title: s.title, text: s.text, href: docHref(product.slug, s.slug) }));
 
   const ld = {
     "@context": "https://schema.org",
@@ -56,7 +59,7 @@ export default async function DocsLanding({ params }: PageProps<"/docs/[product]
             <Link href={intro} className="inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 font-semibold text-[var(--doc-accent-ink)] shadow-lg hover:bg-gray-50">
               Get Started <ArrowRight aria-hidden="true" className="size-4" />
             </Link>
-            <Link href={docHref(product.slug, "installation/requirements")} className="inline-flex items-center gap-2 rounded-xl border border-white/60 px-6 py-3 font-semibold text-white hover:bg-white/10">
+            <Link href={docHref(product.slug, product.installSlug ?? "installation/requirements")} className="inline-flex items-center gap-2 rounded-xl border border-white/60 px-6 py-3 font-semibold text-white hover:bg-white/10">
               Installation Guide
             </Link>
             {product.productUrl && (
