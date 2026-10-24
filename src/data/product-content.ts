@@ -2,6 +2,7 @@ import type { FaqItem } from "@/components/Faq";
 import type { Product } from "./products";
 import { QWIKMART_SLUG, qwikmartContent } from "./qwikmart";
 import { GO4FOODIE_SLUG, go4foodieContent } from "./go4foodie";
+import { GO4RIDE_SLUG, go4rideContent } from "./go4ride";
 
 export type Card = { title: string; text: string };
 
@@ -24,6 +25,8 @@ export type ProductContent = {
   demoNote?: string;
   /** Live demo links (replace the "Request … Demo" buttons when present). */
   demoLinks?: { label: string; href: string }[];
+  /** Demo request buttons shown when there are no public demo links (default: Website, Admin Panel). */
+  demoRequests?: string[];
   /**
    * Image-led product story (premium layout). When present it replaces the text feature sections
    * (why / screens / features / problems / ecosystem / requirements / you-get) on the product page.
@@ -48,6 +51,7 @@ export function productContent(p: Product): ProductContent {
   const n = p.name;
   if (p.slug === QWIKMART_SLUG) return qwikmartContent;
   if (p.slug === GO4FOODIE_SLUG) return go4foodieContent;
+  if (p.slug === GO4RIDE_SLUG) return go4rideContent;
 
   if (p.type === "addon") {
     return {

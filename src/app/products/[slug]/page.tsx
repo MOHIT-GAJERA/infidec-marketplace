@@ -270,7 +270,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
                           <span className="sr-only">(opens in a new tab)</span>
                         </a>
                       ))}
-                      {!c.demoLinks?.length && ["Website", "Admin Panel"].map((l) => (
+                      {!c.demoLinks?.length && (c.demoRequests ?? ["Website", "Admin Panel"]).map((l) => (
                         <Link
                           key={l}
                           href={`/contact-us?product=${p.slug}&demo=${encodeURIComponent(l)}`}
