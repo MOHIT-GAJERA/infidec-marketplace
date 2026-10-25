@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 760" width="1000" height="760" role="img" aria-labelledby="t d">
+  <title id="t">Go4Ride architecture</title>
+  <desc id="d">The Customer App, Driver App and Admin Panel use the Firebase SDKs directly: Authentication, Cloud Firestore, the Realtime Database for live driver locations, Cloud Storage and Cloud Messaging, protected by security rules. Cloud Functions react to ride and profile changes, run scheduled jobs, expose callable functions for payments, subscriptions, KYC review and staff, and verify online payments with Razorpay, Stripe and PayPal. The apps call Google Maps Platform for maps, places and routes.</desc>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 10 5 0 10z" fill="#111111"/>
+    </marker>
+    <marker id="aa" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 10 5 0 10z" fill="#D18F00"/>
+    </marker>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M24 0H0V24" fill="none" stroke="#111111" stroke-opacity=".05"/>
+    </pattern>
+    <filter id="sh" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity=".10"/>
+    </filter>
+  </defs>
+  <style>
+    text{font-family:Manrope,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;fill:#111111}
+    .h{font-size:24px;font-weight:800}
+    .lead{font-size:14px;font-weight:500;fill:#5B5B5B}
+    .sec{font-size:12px;font-weight:800;letter-spacing:.14em;fill:#8A5A00}
+    .bt{font-size:16px;font-weight:800}
+    .bs{font-size:12.5px;font-weight:500;fill:#5B5B5B}
+    .w{fill:#FFFFFF}.wm{fill:#BDBDBD}.am{fill:#F5A800}
+    .mono{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;font-size:12.5px;font-weight:700}
+    .lab{font-size:12px;font-weight:700;fill:#5B5B5B}
+    .laba{font-size:12px;font-weight:700;fill:#8A5A00}
+    .box{fill:#FFFFFF;stroke:#E3E3E3;stroke-width:1.2}
+    .ln{stroke:#111111;stroke-width:2;fill:none}
+    .la{stroke:#D18F00;stroke-width:2;fill:none;stroke-dasharray:6 5}
+  </style>
+
+  <rect width="1000" height="760" rx="24" fill="#FAF8F3"/>
+  <rect width="1000" height="760" rx="24" fill="url(#grid)"/>
+
+  <text x="30" y="46" class="h">Go4Ride architecture</text>
+  <text x="30" y="70" class="lead">Serverless on Firebase — apps talk to Firebase directly, trusted logic runs in Cloud Functions.</text>
+
+  <text x="30" y="112" class="sec">CLIENTS</text>
+  <text x="300" y="112" class="sec">FIREBASE (SECURITY RULES)</text>
+  <text x="690" y="112" class="sec">CLOUD FUNCTIONS</text>
+
+  <!-- Clients -->
+  <g filter="url(#sh)">
+    <rect x="30" y="128" width="230" height="96" rx="16" fill="#111111"/>
+    <text x="50" y="160" class="bt w">Customer App</text>
+    <text x="50" y="182" class="bs wm">Flutter · Android &amp; iOS</text>
+    <text x="50" y="203" class="bs wm">Book, track, pay, support</text>
+
+    <rect x="30" y="244" width="230" height="96" rx="16" fill="#111111"/>
+    <text x="50" y="276" class="bt w">Driver App</text>
+    <text x="50" y="298" class="bs wm">Flutter · Android &amp; iOS</text>
+    <text x="50" y="319" class="bs wm">KYC, go online, trips, earnings</text>
+
+    <rect x="30" y="360" width="230" height="96" rx="16" fill="#F5A800"/>
+    <text x="50" y="392" class="bt">Admin Panel</text>
+    <text x="50" y="414" class="bs" style="fill:#3B2A00">Flutter Web · Firebase Hosting</text>
+    <text x="50" y="435" class="bs" style="fill:#3B2A00">Ops, catalogue, finance, settings</text>
+  </g>
+
+  <!-- Firebase services -->
+  <g filter="url(#sh)">
+    <rect x="300" y="128" width="350" height="328" rx="18" class="box"/>
+  </g>
+  <g>
+    <rect x="320" y="146" width="150" height="66" rx="12" fill="#FFF4D6"/>
+    <text x="334" y="173" class="bt" style="font-size:14px">Authentication</text>
+    <text x="334" y="195" class="bs">Phone OTP · e-mail · roles</text>
+
+    <rect x="482" y="146" width="150" height="66" rx="12" fill="#FFF4D6"/>
+    <text x="496" y="173" class="bt" style="font-size:14px">Cloud Firestore</text>
+    <text x="496" y="195" class="bs">rides, drivers, settings…</text>
+
+    <rect x="320" y="224" width="150" height="66" rx="12" fill="#FFF4D6"/>
+    <text x="334" y="251" class="bt" style="font-size:14px">Realtime DB</text>
+    <text x="334" y="273" class="bs">live driver_locations</text>
+
+    <rect x="482" y="224" width="150" height="66" rx="12" fill="#FFF4D6"/>
+    <text x="496" y="251" class="bt" style="font-size:14px">Cloud Storage</text>
+    <text x="496" y="273" class="bs">KYC, photos, uploads</text>
+
+    <rect x="320" y="302" width="150" height="66" rx="12" fill="#FFF4D6"/>
+    <text x="334" y="329" class="bt" style="font-size:14px">Cloud Messaging</text>
+    <text x="334" y="351" class="bs">ride &amp; broadcast pushes</text>
+
+    <rect x="482" y="302" width="150" height="66" rx="12" fill="#FFF4D6"/>
+    <text x="496" y="329" class="bt" style="font-size:14px">Security rules</text>
+    <text x="496" y="351" class="bs">role-based, money locked</text>
+
+    <text x="320" y="396" class="lab">Clients read live data and write only what</text>
+    <text x="320" y="414" class="lab">their role allows. Wallets, commission and</text>
+    <text x="320" y="432" class="lab">payment status are written by Functions only.</text>
+  </g>
+
+  <!-- Functions -->
+  <g filter="url(#sh)">
+    <rect x="690" y="128" width="280" height="328" rx="18" fill="#111111"/>
+  </g>
+  <text x="710" y="160" class="bt w">Triggers</text>
+  <text x="710" y="181" class="mono am">onRideCreated · onRideStatusChanged</text>
+  <text x="710" y="199" class="mono am">onDriver/UserProfileCreated</text>
+  <text x="710" y="229" class="bt w">Callables</text>
+  <text x="710" y="250" class="mono am">createPayment · checkPayment</text>
+  <text x="710" y="268" class="mono am">purchaseSubscription · reviewKyc</text>
+  <text x="710" y="286" class="mono am">approveWithdrawal · sendBroadcast</text>
+  <text x="710" y="304" class="mono am">createStaffUser · calculateFare</text>
+  <text x="710" y="334" class="bt w">Scheduled</text>
+  <text x="710" y="355" class="mono am">expireRideRequests (1 min)</text>
+  <text x="710" y="373" class="mono am">dailyAnalyticsRollup</text>
+  <text x="710" y="403" class="bt w">HTTP</text>
+  <text x="710" y="424" class="mono am">paymentReturn (gateway redirect)</text>
+
+  <!-- arrows clients -> firebase -->
+  <path class="ln" d="M260 176 H300" marker-end="url(#ar)"/>
+  <path class="ln" d="M260 292 H300" marker-end="url(#ar)"/>
+  <path class="ln" d="M260 408 H300" marker-end="url(#ar)"/>
+  <!-- firebase <-> functions -->
+  <path class="ln" d="M650 230 H690" marker-end="url(#ar)" marker-start="url(#ar)"/>
+  <text x="655" y="222" class="lab" style="font-size:10px">events</text>
+
+  <!-- External -->
+  <text x="30" y="512" class="sec">EXTERNAL SERVICES</text>
+  <g filter="url(#sh)">
+    <rect x="30" y="528" width="300" height="110" rx="16" class="box"/>
+    <rect x="350" y="528" width="300" height="110" rx="16" class="box"/>
+    <rect x="670" y="528" width="300" height="110" rx="16" class="box"/>
+  </g>
+  <text x="50" y="560" class="bt">Google Maps Platform</text>
+  <text x="50" y="584" class="bs">Maps SDK, Places, Geocoding</text>
+  <text x="50" y="604" class="bs">and Directions — one API key</text>
+  <text x="50" y="624" class="bs">built into both apps</text>
+
+  <text x="370" y="560" class="bt">Payment gateways</text>
+  <text x="370" y="584" class="bs">Razorpay Payment Links (UPI, cards,</text>
+  <text x="370" y="604" class="bs">netbanking) · Stripe Checkout ·</text>
+  <text x="370" y="624" class="bs">PayPal Orders — hosted checkout pages</text>
+
+  <text x="690" y="560" class="bt">Cash &amp; Wallet</text>
+  <text x="690" y="584" class="bs">No gateway needed: cash is settled</text>
+  <text x="690" y="604" class="bs">against the driver wallet; the rider</text>
+  <text x="690" y="624" class="bs">wallet is debited at trip completion</text>
+
+  <path class="la" d="M145 456 V528" marker-end="url(#aa)"/>
+  <text x="154" y="497" class="laba">maps &amp; routes</text>
+  <path class="la" d="M830 456 V490 H500 V528" marker-end="url(#aa)"/>
+  <text x="560" y="482" class="laba">create checkout · verify result</text>
+
+  <!-- flow strip -->
+  <rect x="30" y="664" width="940" height="66" rx="16" fill="#111111"/>
+  <text x="50" y="692" class="bt w" style="font-size:14px">Ride flow</text>
+  <text x="50" y="714" class="bs wm">requested → driver notified → accepted → arriving → arrived (waiting) → OTP → in progress → completed → settled (commission, wallets, ledger)</text>
+</svg>

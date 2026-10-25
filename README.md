@@ -124,7 +124,7 @@ Docs-site style documentation per product, same routing as the reference docs:
 | Route | What |
 |---|---|
 | `/docs` | List of documented products |
-| `/docs/<product>` | Product docs landing page (`/docs/qwikmart`, `/docs/go4foodie`) |
+| `/docs/<product>` | Product docs landing page (`/docs/qwikmart`, `/docs/go4foodie`, `/docs/go4ride`) |
 | `/docs/<product>/docs/<section>/<page>` | A documentation page (e.g. `/docs/qwikmart/docs/admin/overview`) |
 | `/docs/<product>/search-index.json` | Static search index for the Ctrl + K search dialog |
 
@@ -146,7 +146,10 @@ Docs-site style documentation per product, same routing as the reference docs:
 |---|---|---|---|
 | QwikMart | `/docs/qwikmart` (`src/content/docs/qwikmart/`) | `src/data/qwikmart.ts` | `public/images/qwikmart*`, `public/docs/qwikmart/` |
 | Go4Foodie | `/docs/go4foodie` (`src/content/docs/go4foodie/`) | `src/data/go4foodie.ts` | `public/images/go4foodie*`, `public/docs/go4foodie/` |
+| Go4Ride | `/docs/go4ride` (`src/content/docs/go4ride/`) | `src/data/go4ride.ts` | `public/images/go4ride*`, `public/docs/go4ride/` |
 
 Go4Foodie screenshots were captured from the live demo with names, e-mails and phone numbers replaced by fictional
 demo values (display-only), so no real customer data appears in the docs or product images.
+
+Go4Ride screenshots were captured from the Firebase Emulator Suite with fictional demo data (riders, drivers, rides and sample KYC documents marked *SAMPLE*), so no live customer data appears in the docs or product images.
 - Components: `src/components/docs/` (top bar, sidebar, table of contents, search, Markdown blocks).

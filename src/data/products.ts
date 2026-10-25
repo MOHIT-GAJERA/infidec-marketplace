@@ -1,5 +1,6 @@
 import { qwikmartProduct } from "./qwikmart.ts"; // explicit extension: scripts/generate-thumbs.mts loads this file with Node
 import { go4foodieProduct } from "./go4foodie.ts";
+import { go4rideProduct } from "./go4ride.ts";
 
 export type ProductType = "app" | "addon";
 
@@ -31,7 +32,8 @@ export type ThumbIcon =
   | "droplet"
   | "moon"
   | "cookie"
-  | "headphones";
+  | "headphones"
+  | "taxi";
 
 export type Product = {
   slug: string;
@@ -76,6 +78,7 @@ const appIntegrations = ["Firebase Cloud Messaging", "SMTP Email", "SMS Gateway 
 export const products: Product[] = [
   qwikmartProduct,
   go4foodieProduct,
+  go4rideProduct,
   {
     slug: "freshcart-All-in-One-grocery-organic-food-delivery",
     name: "FreshCart",

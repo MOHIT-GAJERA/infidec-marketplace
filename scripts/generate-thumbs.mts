@@ -32,6 +32,7 @@ const iconMap: Record<ThumbIcon, keyof typeof lucide> = {
   moon: "Moon",
   cookie: "Cookie",
   headphones: "Headphones",
+  taxi: "CarTaxiFront",
 };
 
 const W = 680;

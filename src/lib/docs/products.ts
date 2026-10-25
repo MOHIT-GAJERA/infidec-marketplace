@@ -481,7 +481,223 @@ const go4foodie: DocsProduct = {
   ],
 };
 
-export const docsProducts: Record<string, DocsProduct> = { qwikmart, go4foodie };
+const go4ride: DocsProduct = {
+  slug: "go4ride",
+  name: "Go4Ride",
+  tagline: "Complete guide for the Go4Ride taxi, intercity, rental & parcel booking platform",
+  description:
+    "Install, configure, brand and publish Go4Ride: Firebase backend with Cloud Functions, the Flutter Web Admin Panel, and the Flutter Customer and Driver apps for Android and iOS.",
+  version: "1.0.0",
+  updated: "24 October 2026",
+  colors: { accent: "#F5A800", ink: "#8A5A00", soft: "#FFF4D6" },
+  logo: "/docs/go4ride/logo.png",
+  productUrl: "/products/go4ride-taxi-booking-ride-hailing-platform",
+  installSlug: "installation/requirements",
+  quickStart: [
+    {
+      title: "Create Firebase & deploy the backend",
+      text: "Create your Firebase project on the Blaze plan, then deploy Cloud Functions, security rules, indexes and the Realtime Database rules.",
+      slug: "installation/firebase-project",
+    },
+    {
+      title: "Install the Admin Panel",
+      text: "Connect the Flutter Web admin to your project, create the first admin and load the default catalogue.",
+      slug: "installation/admin-panel",
+    },
+    {
+      title: "Brand & publish the apps",
+      text: "Change package names, logo, splash and colours of the Customer and Driver apps, add your Maps key and upload to Google Play.",
+      slug: "app-customer/prerequisites",
+    },
+  ],
+  sections: [
+    {
+      key: "intro",
+      title: "Introduction",
+      description: "What Go4Ride is, what is included in the package and how the pieces fit together.",
+      icon: "BookOpen",
+      items: [{ title: "Introduction", slug: "intro" }],
+    },
+    {
+      key: "admin",
+      title: "Admin Panel",
+      description:
+        "Set up Firebase, deploy the backend and run the platform: bookings, dispatch, drivers & KYC, pricing, zones, offers, payouts and settings.",
+      icon: "LayoutDashboard",
+      badge: "Start here",
+      tab: true,
+      items: [
+        { title: "Overview", slug: "admin/overview" },
+        { title: "Demo Instructions", slug: "admin/demo-instructions" },
+        { title: "Third-Party Service Costs", slug: "admin/third-party-costs" },
+        {
+          title: "Installation",
+          children: [
+            { title: "Installation Overview", slug: "installation/overview" },
+            { title: "Requirements", slug: "installation/requirements" },
+            { title: "Create the Firebase Project", slug: "installation/firebase-project" },
+            { title: "Deploy the Backend", slug: "installation/backend-deploy" },
+            { title: "Keys & Environment", slug: "installation/environment-configuration" },
+            { title: "Admin Panel Installation", slug: "installation/admin-panel" },
+            { title: "Create the First Admin", slug: "installation/super-admin" },
+            { title: "Hosting, Domain & SSL", slug: "installation/hosting" },
+            { title: "Setup Guide (First 10 Steps)", slug: "installation/setup-guide" },
+            { title: "Localhost & Emulators", slug: "installation/localhost-setup" },
+            { title: "Backups & Monitoring", slug: "installation/backups" },
+          ],
+        },
+        {
+          title: "Catalogue",
+          children: [
+            { title: "Services", slug: "admin/services" },
+            { title: "Zones, Fares & Surge", slug: "admin/zones" },
+            { title: "Rental Packages", slug: "admin/rental-packages" },
+            { title: "Vehicle Types, Brands & Models", slug: "admin/vehicles" },
+            { title: "Driver Documents", slug: "admin/driver-documents" },
+          ],
+        },
+        {
+          title: "Operations",
+          children: [
+            { title: "Dashboard", slug: "admin/dashboard" },
+            { title: "Bookings", slug: "admin/bookings" },
+            { title: "Dispatch & Dispatch Users", slug: "admin/dispatch" },
+            { title: "SOS Alerts", slug: "admin/sos-alerts" },
+            { title: "Support Tickets", slug: "admin/support" },
+          ],
+        },
+        {
+          title: "People",
+          children: [
+            { title: "Customers & Wallet", slug: "admin/customers" },
+            { title: "Drivers & KYC", slug: "admin/drivers" },
+            { title: "Online Drivers Map", slug: "admin/online-drivers" },
+            { title: "Employees, Roles & Permissions", slug: "admin/roles-permissions" },
+          ],
+        },
+        {
+          title: "Growth",
+          children: [
+            { title: "Offers & Coupons", slug: "admin/offers" },
+            { title: "Banners & Onboarding", slug: "admin/banners-onboarding" },
+            { title: "Push Notifications", slug: "admin/push-notifications" },
+            { title: "Email Templates", slug: "admin/email-templates" },
+            { title: "Achievement Badges", slug: "admin/badges" },
+          ],
+        },
+        {
+          title: "Finance",
+          children: [
+            { title: "Commission, Wallet & Settlement", slug: "admin/commission-wallet" },
+            { title: "Driver Subscriptions", slug: "admin/subscriptions" },
+            { title: "Payout Requests", slug: "admin/payouts" },
+            { title: "Payment Gateways", slug: "admin/payment-gateways" },
+          ],
+        },
+        {
+          title: "Settings",
+          children: [
+            { title: "General & App Settings", slug: "admin/settings" },
+            { title: "Maps & Location", slug: "admin/map-settings" },
+            { title: "Maintenance Mode & App Versions", slug: "admin/maintenance" },
+          ],
+        },
+      ],
+    },
+    {
+      key: "app-customer",
+      title: "Customer App",
+      description:
+        "Brand, configure and publish the rider app: phone login, booking for cab, intercity, rental and parcel, live tracking, wallet and payments.",
+      icon: "Smartphone",
+      badge: "Android & iOS",
+      tab: true,
+      items: [
+        { title: "App Prerequisites", slug: "app-customer/prerequisites" },
+        { title: "Firebase Setup", slug: "app-customer/firebase-setup" },
+        { title: "Change Package Name", slug: "app-customer/change-package-name" },
+        { title: "App Name, Logo & Splash", slug: "app-customer/branding" },
+        { title: "Theme Colours & Fonts", slug: "app-customer/change-theme" },
+        { title: "Google Maps & Location", slug: "app-customer/maps-location" },
+        { title: "Phone Login (OTP)", slug: "app-customer/auth" },
+        { title: "Booking a Ride", slug: "app-customer/booking" },
+        { title: "Live Tracking, OTP & SOS", slug: "app-customer/ride-tracking" },
+        { title: "Cancellation & Fees", slug: "app-customer/cancellation" },
+        { title: "Wallet & Payments", slug: "app-customer/payments" },
+        { title: "Help & Support Tickets", slug: "app-customer/support" },
+        { title: "Push Notifications", slug: "app-customer/notifications" },
+        { title: "Run the App", slug: "app-customer/run-the-app" },
+        { title: "Release & Play Store", slug: "app-customer/deployment" },
+      ],
+    },
+    {
+      key: "app-driver",
+      title: "Driver App",
+      description:
+        "Brand and publish the driver app: registration and KYC documents, going online, the ride workflow with OTP, earnings, subscriptions and payouts.",
+      icon: "Bike",
+      badge: "Android & iOS",
+      tab: true,
+      items: [
+        { title: "App Prerequisites", slug: "app-driver/prerequisites" },
+        { title: "Firebase Setup", slug: "app-driver/firebase-setup" },
+        { title: "Change Package Name", slug: "app-driver/change-package-name" },
+        { title: "App Name, Logo & Colour", slug: "app-driver/branding" },
+        { title: "Registration & KYC Documents", slug: "app-driver/registration" },
+        { title: "Going Online & Live Location", slug: "app-driver/going-online" },
+        { title: "Ride Workflow & OTP", slug: "app-driver/ride-workflow" },
+        { title: "Earnings, Wallet & Payouts", slug: "app-driver/earnings" },
+        { title: "Subscription Plans", slug: "app-driver/subscriptions" },
+        { title: "Run the App", slug: "app-driver/run-the-app" },
+        { title: "Release & Play Store", slug: "app-driver/deployment" },
+      ],
+    },
+    {
+      key: "api",
+      title: "Backend Reference",
+      description:
+        "The Firebase backend: Cloud Functions (callables, triggers, schedules), the Firestore data model, security rules and the payment flow.",
+      icon: "Code",
+      badge: "Developers",
+      tab: true,
+      items: [
+        { title: "Architecture", slug: "api/overview" },
+        { title: "Callable Functions", slug: "api/callable-functions" },
+        { title: "Triggers & Scheduled Jobs", slug: "api/triggers" },
+        { title: "Ride Lifecycle", slug: "api/ride-lifecycle" },
+        { title: "Payment Flow", slug: "api/payments" },
+        { title: "Data Model (Firestore)", slug: "api/data-model" },
+        { title: "Security Rules", slug: "api/security-rules" },
+        { title: "Testing", slug: "api/testing" },
+      ],
+    },
+    {
+      key: "changelog",
+      title: "Changelog",
+      description: "Release history of Go4Ride.",
+      icon: "History",
+      items: [{ title: "Changelog", slug: "changelog" }],
+    },
+    {
+      key: "support",
+      title: "Support",
+      description: "How to get help, what support covers and how to report an issue.",
+      icon: "LifeBuoy",
+      tab: true,
+      items: [{ title: "Support", slug: "support" }],
+    },
+    {
+      key: "faqs",
+      title: "FAQs",
+      description: "Answers to the most common setup, Firebase, Maps, payment, KYC and Play Store questions.",
+      icon: "CircleHelp",
+      tab: true,
+      items: [{ title: "FAQs", slug: "faqs" }],
+    },
+  ],
+};
+
+export const docsProducts: Record<string, DocsProduct> = { qwikmart, go4foodie, go4ride };
 
 export const getDocsProduct = (slug: string): DocsProduct | undefined => docsProducts[slug];
 
