@@ -697,7 +697,242 @@ const go4ride: DocsProduct = {
   ],
 };
 
-export const docsProducts: Record<string, DocsProduct> = { qwikmart, go4foodie, go4ride };
+const classiadshub: DocsProduct = {
+  slug: "classiadshub",
+  name: "ClassiAds-Hub",
+  tagline: "Complete guide for the ClassiAds-Hub classified ads & buy-sell marketplace platform",
+  description:
+    "Install, configure, brand and publish ClassiAds-Hub: Firebase backend with Cloud Functions, the Next.js Admin Panel, the Next.js website and the Flutter app for Android and iOS.",
+  version: "1.0.0",
+  updated: "27 October 2026",
+  colors: { accent: "#272757", ink: "#272757", soft: "#ECECF6" },
+  logo: "/docs/classiadshub/logo.png",
+  productUrl: "/products/classiads-hub-classified-ads-buy-sell-marketplace-platform",
+  installSlug: "installation/requirements",
+  quickStart: [
+    {
+      title: "Create Firebase & deploy the backend",
+      text: "Create your Firebase project on the Blaze plan, then deploy the Cloud Functions API, security rules, indexes and the two Hosting sites.",
+      slug: "installation/firebase-project",
+    },
+    {
+      title: "Install the Admin Panel & website",
+      text: "Build the Next.js Admin Panel and website, create the first super admin and load categories, locations and settings.",
+      slug: "installation/admin-panel",
+    },
+    {
+      title: "Brand & publish the app",
+      text: "Change the package name, logo, splash and colours of the Flutter app, add your Maps key and upload it to Google Play.",
+      slug: "app/prerequisites",
+    },
+  ],
+  sections: [
+    {
+      key: "intro",
+      title: "Introduction",
+      description: "What ClassiAds-Hub is, what is included in the package and how the pieces fit together.",
+      icon: "BookOpen",
+      items: [{ title: "Introduction", slug: "intro" }],
+    },
+    {
+      key: "admin",
+      title: "Admin Panel",
+      description:
+        "Set up Firebase, deploy the backend and run the marketplace: ad moderation, categories, custom fields, content, packages, sellers, customers, locations and settings.",
+      icon: "LayoutDashboard",
+      badge: "Start here",
+      tab: true,
+      items: [
+        { title: "Overview", slug: "admin/overview" },
+        { title: "Demo Instructions", slug: "admin/demo-instructions" },
+        { title: "Third-Party Service Costs", slug: "admin/third-party-costs" },
+        {
+          title: "Installation",
+          children: [
+            { title: "Installation Overview", slug: "installation/overview" },
+            { title: "Requirements", slug: "installation/requirements" },
+            { title: "Create the Firebase Project", slug: "installation/firebase-project" },
+            { title: "Deploy the Backend", slug: "installation/backend-deploy" },
+            { title: "Keys & Environment", slug: "installation/environment-configuration" },
+            { title: "Admin Panel Installation", slug: "installation/admin-panel" },
+            { title: "Create the First Admin", slug: "installation/super-admin" },
+            { title: "Hosting, Domain & SSL", slug: "installation/hosting" },
+            { title: "Setup Guide (First 10 Steps)", slug: "installation/setup-guide" },
+            { title: "Localhost Setup", slug: "installation/localhost-setup" },
+            { title: "Data Migration (MySQL → Firestore)", slug: "installation/data-migration" },
+            { title: "Backups & Monitoring", slug: "installation/backups" },
+          ],
+        },
+        {
+          title: "Ads & Catalogue",
+          children: [
+            { title: "Dashboard", slug: "admin/dashboard" },
+            { title: "Ads & Moderation", slug: "admin/ads" },
+            { title: "Categories", slug: "admin/categories" },
+            { title: "Custom Fields", slug: "admin/custom-fields" },
+            { title: "Job Listings", slug: "admin/jobs" },
+          ],
+        },
+        {
+          title: "Content",
+          children: [
+            { title: "Sliders & Home Screen", slug: "admin/home-content" },
+            { title: "Feature Sections", slug: "admin/featured-sections" },
+            { title: "Offer Item Tips", slug: "admin/tips" },
+            { title: "Banner Ads", slug: "admin/banner-ads" },
+            { title: "Blogs & FAQs", slug: "admin/blogs" },
+            { title: "CMS Pages", slug: "admin/pages" },
+          ],
+        },
+        {
+          title: "Chat & Trust",
+          children: [
+            { title: "Chats & Chat Templates", slug: "admin/chat" },
+            { title: "Seller Verification", slug: "admin/seller-verification" },
+            { title: "Seller Reviews & Reports", slug: "admin/reviews" },
+            { title: "Report Reasons & User Reports", slug: "admin/reports" },
+          ],
+        },
+        {
+          title: "Monetization",
+          children: [
+            { title: "Subscription Packages", slug: "admin/packages" },
+            { title: "Featured Ad Plans", slug: "admin/featured-plans" },
+            { title: "Subscriptions & Transactions", slug: "admin/transactions" },
+            { title: "Payment Gateways", slug: "admin/payment-gateways" },
+            { title: "AdMob, AdSense & Video Ads", slug: "admin/ad-networks" },
+          ],
+        },
+        {
+          title: "People",
+          children: [
+            { title: "Customers & User Queries", slug: "admin/customers" },
+            { title: "Roles, Staff & Permissions", slug: "admin/roles-permissions" },
+            { title: "Push Notifications", slug: "admin/push-notifications" },
+          ],
+        },
+        {
+          title: "Location",
+          children: [{ title: "Countries, States, Cities, Areas & Currencies", slug: "admin/locations" }],
+        },
+        {
+          title: "Settings",
+          children: [
+            { title: "General, Web & SEO", slug: "admin/settings" },
+            { title: "Languages & Currency", slug: "admin/languages" },
+            { title: "Login, OTP & Notification Settings", slug: "admin/otp-notifications" },
+            { title: "Email Templates & SMTP", slug: "admin/email-templates" },
+            { title: "Firebase Settings", slug: "admin/firebase-settings" },
+            { title: "Watermark & File Manager", slug: "admin/media-settings" },
+            { title: "Gemini AI", slug: "admin/ai-settings" },
+            { title: "System Status, Logs & Dummy Data", slug: "admin/system-status" },
+          ],
+        },
+      ],
+    },
+    {
+      key: "web",
+      title: "Website",
+      description:
+        "Install, configure and deploy the Next.js website: browsing and search, ad details, posting ads, the user dashboard, plans and checkout, blog, jobs and SEO.",
+      icon: "Globe",
+      badge: "Next.js",
+      tab: true,
+      items: [
+        { title: "Overview", slug: "web/overview" },
+        { title: "Installation Steps", slug: "web/installation-steps" },
+        { title: "Configuration", slug: "web/configuration" },
+        { title: "File Structure", slug: "web/file-structure" },
+        { title: "Browsing, Search & Nearby", slug: "web/browsing" },
+        { title: "Ad Details & Sellers", slug: "web/ad-detail" },
+        { title: "Posting & Managing Ads", slug: "web/post-ad" },
+        { title: "Accounts & Login", slug: "web/accounts" },
+        { title: "User Dashboard", slug: "web/dashboard" },
+        { title: "Plans, Featured Ads & Checkout", slug: "web/checkout" },
+        { title: "Blog, Jobs & Pages", slug: "web/content" },
+        { title: "SEO & Sitemap", slug: "web/seo" },
+        { title: "Deployment", slug: "web/deployment" },
+      ],
+    },
+    {
+      key: "app",
+      title: "Mobile App",
+      description:
+        "Brand, configure and publish the Flutter app: login, home and search, ad details, posting ads, chat and offers, profile and account deletion, notifications and Play Store release.",
+      icon: "Smartphone",
+      badge: "Android & iOS",
+      tab: true,
+      items: [
+        { title: "App Prerequisites", slug: "app/prerequisites" },
+        { title: "Firebase Setup", slug: "app/firebase-setup" },
+        { title: "Change Package Name", slug: "app/change-package-name" },
+        { title: "App Name, Logo & Splash", slug: "app/branding" },
+        { title: "Theme Colours & Fonts", slug: "app/change-theme" },
+        { title: "API Configuration", slug: "app/api-configuration" },
+        { title: "Google Maps & Location", slug: "app/maps-location" },
+        { title: "Login, Register & OTP", slug: "app/auth" },
+        { title: "Onboarding & Home", slug: "app/home" },
+        { title: "Search, Categories & Nearby", slug: "app/search" },
+        { title: "Ad Details, Favorites & Sharing", slug: "app/ad-detail" },
+        { title: "Post & Manage Ads", slug: "app/post-ad" },
+        { title: "Chat, Offers & Reviews", slug: "app/chat-offers" },
+        { title: "Profile, Verification & Account Deletion", slug: "app/profile" },
+        { title: "Push Notifications", slug: "app/notifications" },
+        { title: "Run the App", slug: "app/run-the-app" },
+        { title: "Release & Play Store", slug: "app/deployment" },
+      ],
+    },
+    {
+      key: "api",
+      title: "Backend Reference",
+      description:
+        "The Firebase backend: the Cloud Functions REST API (envelope, auth, endpoints), the Firestore data model, security rules, payments and scheduled jobs.",
+      icon: "Code",
+      badge: "Developers",
+      tab: true,
+      items: [
+        { title: "Architecture", slug: "api/overview" },
+        { title: "Conventions & Errors", slug: "api/conventions" },
+        { title: "Auth Endpoints", slug: "api/auth" },
+        { title: "Catalogue & Content Endpoints", slug: "api/catalog" },
+        { title: "Ads Endpoints", slug: "api/ads" },
+        { title: "Chat, Offers & Social Endpoints", slug: "api/social" },
+        { title: "Billing & Payments", slug: "api/billing" },
+        { title: "Jobs Endpoints", slug: "api/jobs" },
+        { title: "Admin Endpoints", slug: "api/admin" },
+        { title: "Data Model (Firestore)", slug: "api/data-model" },
+        { title: "Security Rules & Storage", slug: "api/security-rules" },
+        { title: "Scheduled Jobs", slug: "api/scheduled-jobs" },
+        { title: "Testing & QA Tools", slug: "api/testing" },
+      ],
+    },
+    {
+      key: "changelog",
+      title: "Changelog",
+      description: "Release history of ClassiAds-Hub.",
+      icon: "History",
+      items: [{ title: "Changelog", slug: "changelog" }],
+    },
+    {
+      key: "support",
+      title: "Support",
+      description: "How to get help, what support covers and how to report an issue.",
+      icon: "LifeBuoy",
+      tab: true,
+      items: [{ title: "Support", slug: "support" }],
+    },
+    {
+      key: "faqs",
+      title: "FAQs",
+      description: "Answers to the most common setup, Firebase, payment, moderation, Maps and Play Store questions.",
+      icon: "CircleHelp",
+      tab: true,
+      items: [{ title: "FAQs", slug: "faqs" }],
+    },
+  ],
+};
+
+export const docsProducts: Record<string, DocsProduct> = { qwikmart, go4foodie, go4ride, classiadshub };
 
 export const getDocsProduct = (slug: string): DocsProduct | undefined => docsProducts[slug];
 

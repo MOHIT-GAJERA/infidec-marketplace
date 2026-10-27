@@ -14,16 +14,11 @@ export const metadata: Metadata = {
   openGraph: { url: "/products" },
 };
 
-const byNewest = (d: string) => {
-  const [dd, mm, yy] = d.split("-").map(Number);
-  return new Date(yy, mm - 1, dd).getTime();
-};
-
 export default function ProductsPage() {
-  // Inline the first two thumbnails of the default (newest) order so the LCP image needs no request.
+  // Inline the first two thumbnails of the default (best selling) order so the LCP image needs no request.
   const inlineThumbs = Object.fromEntries(
     [...products]
-      .sort((a, b) => byNewest(b.releaseDate) - byNewest(a.releaseDate))
+      .sort((a, b) => (b.sales ?? 0) - (a.sales ?? 0))
       .slice(0, 2)
       .map((p) => [p.slug, thumbDataUri(p.slug)]),
   );

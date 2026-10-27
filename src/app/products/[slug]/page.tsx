@@ -419,7 +419,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
                 <section
                   aria-labelledby="banner-title"
                   className={`relative isolate overflow-hidden rounded-3xl ${p.image ? "p-4 sm:p-10" : "p-3"}`}
-                  style={{ background: `linear-gradient(135deg, ${p.theme.ink === "light" ? p.theme.from : "#1556e0"}, ${p.theme.ink === "light" ? p.theme.to : "#7b2ff7"})` }}
+                  style={{ background: `linear-gradient(135deg, ${p.theme.ink === "light" ? p.theme.from : "#257ef9"}, ${p.theme.ink === "light" ? p.theme.to : "#7b2ff7"})` }}
                 >
                   {p.image && (
                     <Image src={p.image} alt="" fill quality={60} sizes="(min-width: 1024px) 900px, 100vw" className="-z-10 object-cover" />

@@ -196,21 +196,23 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Our kits */}
-      <section aria-labelledby="kits-title" className="cv-auto container-x py-16 lg:py-20">
-        <SectionHeading
-          id="kits-title"
-          title="Our Kits"
-          description="Complete, ready-to-launch product kits — customer apps, websites and admin panels with full source code, built by our team for health, food and wellness businesses."
-          icon={<Layers aria-hidden="true" className="size-5" />}
-          cta={{ href: "/products", label: "View All Kits" }}
-        />
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {productKits.map((p) => (
-            <ProductCard key={p.slug} product={p} />
-          ))}
-        </div>
-      </section>
+      {/* Our kits (hidden while there are no non-featured kits) */}
+      {productKits.length > 0 && (
+        <section aria-labelledby="kits-title" className="cv-auto container-x py-16 lg:py-20">
+          <SectionHeading
+            id="kits-title"
+            title="Our Kits"
+            description="Complete, ready-to-launch product kits — customer apps, websites and admin panels with full source code, built by our team for health, food and wellness businesses."
+            icon={<Layers aria-hidden="true" className="size-5" />}
+            cta={{ href: "/products", label: "View All Kits" }}
+          />
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {productKits.map((p) => (
+              <ProductCard key={p.slug} product={p} />
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Testimonials */}
       <section aria-labelledby="loved-title" className="cv-auto container-x pt-6 pb-16 lg:pb-20">

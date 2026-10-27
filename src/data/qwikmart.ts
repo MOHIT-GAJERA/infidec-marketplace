@@ -18,6 +18,8 @@ export const qwikmartProduct: Product = {
   isNew: true,
   price: 1799,
   oldPrice: 8299,
+  rating: 4.9,
+  sales: 1248,
   theme: { from: "#0B7A1C", to: "#22B03A", ink: "light" },
   icon: "cart",
   tagline: "All-in-One Quick Commerce & eCommerce Platform",
