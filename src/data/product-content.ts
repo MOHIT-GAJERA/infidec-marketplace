@@ -3,6 +3,7 @@ import type { Product } from "./products";
 import { QWIKMART_SLUG, qwikmartContent } from "./qwikmart";
 import { GO4FOODIE_SLUG, go4foodieContent } from "./go4foodie";
 import { GO4RIDE_SLUG, go4rideContent } from "./go4ride";
+import { CLASSIADSHUB_SLUG, classiadshubContent } from "./classiadshub";
 
 export type Card = { title: string; text: string };
 
@@ -52,6 +53,7 @@ export function productContent(p: Product): ProductContent {
   if (p.slug === QWIKMART_SLUG) return qwikmartContent;
   if (p.slug === GO4FOODIE_SLUG) return go4foodieContent;
   if (p.slug === GO4RIDE_SLUG) return go4rideContent;
+  if (p.slug === CLASSIADSHUB_SLUG) return classiadshubContent;
 
   if (p.type === "addon") {
     return {

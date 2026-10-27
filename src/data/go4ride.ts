@@ -17,6 +17,8 @@ export const go4rideProduct: Product = {
   isNew: true,
   price: 1799,
   oldPrice: 8299,
+  rating: 4.8,
+  sales: 742,
   theme: { from: "#0B0B0B", to: "#F5A800", ink: "light" },
   icon: "taxi",
   tagline: "Taxi, Intercity, Rental & Parcel Booking — Customer App, Driver App & Admin Panel",

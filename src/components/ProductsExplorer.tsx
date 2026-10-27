@@ -37,7 +37,7 @@ export function ProductsExplorer({
   const [maxIn, setMaxIn] = useState("");
   const [range, setRange] = useState<{ min?: number; max?: number }>({});
   const [ratings, setRatings] = useState<number[]>([]);
-  const [sort, setSort] = useState<Sort>("newest");
+  const [sort, setSort] = useState<Sort>("popular");
   const [showFilters, setShowFilters] = useState(false);
   const { currency } = useStore();
   const symbol = currencies.find((c) => c.code === currency)?.symbol ?? "₹";

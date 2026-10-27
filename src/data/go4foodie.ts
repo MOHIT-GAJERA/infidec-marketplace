@@ -18,6 +18,8 @@ export const go4foodieProduct: Product = {
   isNew: true,
   price: 1799,
   oldPrice: 8299,
+  rating: 4.8,
+  sales: 986,
   theme: { from: "#0B5E46", to: "#E8640F", ink: "light" },
   icon: "chef",
   tagline: "All-in-One Restaurant POS, QR Ordering & Online Food Ordering",
