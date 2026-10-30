@@ -2,6 +2,7 @@ import { qwikmartProduct } from "./qwikmart.ts"; // explicit extension: scripts/
 import { go4foodieProduct } from "./go4foodie.ts";
 import { go4rideProduct } from "./go4ride.ts";
 import { classiadshubProduct } from "./classiadshub.ts";
+import { go4marketProduct } from "./go4market.ts";
 
 export type ProductType = "app" | "addon";
 
@@ -76,6 +77,7 @@ export const categories: { key: CategoryKey; label: string }[] = [
 
 export const products: Product[] = [
   qwikmartProduct,
+  go4marketProduct,
   go4foodieProduct,
   go4rideProduct,
   classiadshubProduct,
