@@ -15,6 +15,9 @@ const nextConfig: NextConfig = {
   compress: true,
 
   images: {
+    // Serve image files as-is from the Firebase Hosting CDN. They are already compressed WebP,
+    // and on-the-fly resizing ran the 256 MB server function out of memory (random 500/503s).
+    unoptimized: true,
     formats: ["image/avif", "image/webp"],
     qualities: [60, 75],
     minimumCacheTTL: 60 * 60 * 24 * 30,

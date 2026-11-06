@@ -48,7 +48,7 @@ export const infoPages = {
         heading: "Strictly Necessary Cookies (always on)",
         body: ["These are required for the website to work and cannot be switched off. They do not track you across other sites."],
         list: [
-          "bow_session – keeps you securely logged in (HTTP-only, expires after 1 or 30 days)",
+          "__session – keeps you securely logged in (HTTP-only, expires after 1 or 30 days)",
           "bow_uname – shows your first name in the header while you are logged in",
           "bow_cart (local storage) – remembers the products in your cart",
           "bow_currency (local storage) – remembers your USD / INR display preference",

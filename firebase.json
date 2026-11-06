@@ -1,0 +1,20 @@
+{
+  "hosting": {
+    "predeploy": [
+      "npm run thumbs"
+    ],
+    "source": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "secret/**"
+    ],
+    "frameworksBackend": {
+      "region": "asia-south1"
+    }
+  },
+  "firestore": {
+    "rules": "firestore.rules"
+  }
+}

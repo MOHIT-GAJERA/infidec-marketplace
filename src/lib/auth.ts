@@ -6,7 +6,8 @@ import { users } from "./db";
 
 const scrypt = promisify(scryptCb) as (pw: string, salt: string, len: number) => Promise<Buffer>;
 
-export const SESSION_COOKIE = "bow_session";
+// Must be "__session": Firebase Hosting strips every other cookie before requests reach the server.
+export const SESSION_COOKIE = "__session";
 /** Non-sensitive, JS-readable cookie used only to show the user's first name in the header. */
 export const NAME_COOKIE = "bow_uname";
 

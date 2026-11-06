@@ -5,7 +5,7 @@ import { NextResponse, type NextRequest } from "next/server";
  * This is a fast presence check; every API route still verifies the signed session.
  */
 export function proxy(request: NextRequest) {
-  if (request.cookies.has("bow_session")) return NextResponse.next();
+  if (request.cookies.has("__session")) return NextResponse.next();
   const url = request.nextUrl.clone();
   const next = `${request.nextUrl.pathname}${request.nextUrl.search}`;
   url.pathname = "/";
