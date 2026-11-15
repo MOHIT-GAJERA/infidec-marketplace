@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { PageHeader } from "@/components/PageHeader";
 import { CheckoutForm } from "@/components/checkout/CheckoutForm";
 
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
 export default function CheckoutPage() {
   return (
     <>
+      <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
       <PageHeader
         crumbs={[
           { href: "/", label: "Home" },

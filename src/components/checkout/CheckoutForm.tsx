@@ -39,6 +39,19 @@ const empty: Billing = {
 
 const DEMO_PAYMENTS = process.env.NEXT_PUBLIC_PAYMENT_MODE !== "live";
 
+function loadRazorpayCheckoutScript(): Promise<boolean> {
+  return new Promise((resolve) => {
+    if (typeof window === "undefined") return resolve(false);
+    if ((window as unknown as { Razorpay?: unknown }).Razorpay) return resolve(true);
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+}
+
 function validate(b: Billing, payment: string, terms: boolean) {
   const e: Record<string, string> = {};
   if (b.fullName.trim().length < 2) e.fullName = "Enter your full name.";
@@ -119,7 +132,26 @@ export function CheckoutForm() {
           acceptTerms: terms,
         }),
       });
-      const json = (await res.json()) as { ok: boolean; orderId?: string; error?: string; errors?: Record<string, string> };
+      type OrderApiResponse = {
+        ok: boolean;
+        orderId?: string;
+        error?: string;
+        errors?: Record<string, string>;
+        razorpay?: {
+          keyId: string;
+          orderId: string;
+          amount: number;
+          currency: string;
+          name: string;
+          description: string;
+          prefill: {
+            name: string;
+            email: string;
+            contact: string;
+          };
+        };
+      };
+      const json = (await res.json()) as OrderApiResponse;
       if (res.status === 401) {
         router.replace("/?auth=login&next=%2Fcheckout");
         return;
@@ -128,6 +160,78 @@ export function CheckoutForm() {
         if (json.errors) setErrors(json.errors);
         throw new Error(json.error || "Could not place your order. Please try again.");
       }
+
+      // Live Razorpay payment flow
+      if (json.razorpay) {
+        const loaded = await loadRazorpayCheckoutScript();
+        if (!loaded) {
+          throw new Error("Unable to load Razorpay checkout. Please check your network connection.");
+        }
+
+        const rzpOptions = {
+          key: json.razorpay.keyId,
+          amount: json.razorpay.amount,
+          currency: json.razorpay.currency,
+          name: json.razorpay.name || "Infidec Marketplace",
+          description: json.razorpay.description,
+          order_id: json.razorpay.orderId,
+          prefill: {
+            ...json.razorpay.prefill,
+            method: payment === "upi" ? "upi" : payment === "card" ? "card" : payment === "netbanking" ? "netbanking" : undefined,
+          },
+          theme: {
+            color: "#16a34a",
+          },
+          handler: async (resp: {
+            razorpay_payment_id: string;
+            razorpay_order_id: string;
+            razorpay_signature: string;
+          }) => {
+            try {
+              const vRes = await fetch("/api/orders/verify", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  orderId: json.orderId,
+                  razorpayOrderId: resp.razorpay_order_id,
+                  razorpayPaymentId: resp.razorpay_payment_id,
+                  razorpaySignature: resp.razorpay_signature,
+                }),
+              });
+              const vJson = (await vRes.json()) as { ok: boolean; error?: string };
+              if (!vRes.ok || !vJson.ok) {
+                throw new Error(vJson.error || "Payment verification failed. Please contact support.");
+              }
+              clearCart();
+              router.push(`/order-success?id=${encodeURIComponent(json.orderId!)}`);
+            } catch (vErr) {
+              setFormError(vErr instanceof Error ? vErr.message : "Payment verification failed.");
+              setBusy(false);
+            }
+          },
+          modal: {
+            ondismiss: () => {
+              setBusy(false);
+              setFormError("Payment was cancelled. You can try again whenever you're ready.");
+            },
+          },
+        };
+
+        type RzpInstance = {
+          open: () => void;
+          on: (event: string, handler: (data: unknown) => void) => void;
+        };
+        const RazorpayCtor = (window as unknown as { Razorpay: new (opts: typeof rzpOptions) => RzpInstance }).Razorpay;
+        const rzp = new RazorpayCtor(rzpOptions);
+        rzp.on("payment.failed", (failData: unknown) => {
+          const desc = (failData as { error?: { description?: string } })?.error?.description;
+          setBusy(false);
+          setFormError(desc || "Payment failed. Please choose another payment method.");
+        });
+        rzp.open();
+        return;
+      }
+
       clearCart();
       router.push(`/order-success?id=${encodeURIComponent(json.orderId)}`);
     } catch (err) {
