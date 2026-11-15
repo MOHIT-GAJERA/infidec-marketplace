@@ -4,6 +4,7 @@ import { currentUser } from "@/lib/auth";
 import { orders, type Order, type OrderItem } from "@/lib/db";
 import { priceLine, totals, type License } from "@/lib/pricing";
 import { countries, EMAIL_RE, GSTIN_RE, paymentMethods, PHONE_RE, POSTAL_RE } from "@/lib/validation";
+import { createRazorpayOrder, getRazorpayKeyId, isRazorpayConfigured } from "@/lib/razorpay";
 
 export async function GET() {
   const user = await currentUser();
@@ -77,18 +78,66 @@ export async function POST(req: Request) {
   }
 
   const t = totals(items.reduce((sum, i) => sum + i.total, 0));
+  const orderId = `BOW-${Date.now().toString(36).toUpperCase()}-${randomBytes(2).toString("hex").toUpperCase()}`;
+  const isLive = process.env.NEXT_PUBLIC_PAYMENT_MODE === "live";
+  const useRazorpay = isRazorpayConfigured() && isLive;
+
+  let razorpayOrder: Awaited<ReturnType<typeof createRazorpayOrder>> | undefined;
+  if (useRazorpay) {
+    try {
+      razorpayOrder = await createRazorpayOrder({
+        amount: t.total,
+        currency: "INR",
+        receipt: orderId,
+        notes: {
+          orderId,
+          userId: user.id,
+          email: billing.email,
+        },
+      });
+    } catch (err) {
+      console.error("[Orders] Razorpay order creation failed:", err);
+      return NextResponse.json(
+        { ok: false, error: err instanceof Error ? err.message : "Failed to initiate payment. Please try again." },
+        { status: 502 }
+      );
+    }
+  }
+
   const order: Order = {
-    id: `BOW-${Date.now().toString(36).toUpperCase()}-${randomBytes(2).toString("hex").toUpperCase()}`,
+    id: orderId,
     userId: user.id,
     items,
     ...t,
     currency: "INR",
     paymentMethod,
-    // TODO: create a Razorpay/Stripe order here and mark as paid from the gateway webhook.
-    status: "paid",
+    status: useRazorpay ? "pending" : "paid",
+    razorpayOrderId: razorpayOrder?.id,
     billing,
     createdAt: new Date().toISOString(),
   };
+
   await orders.create(order);
+
+  if (useRazorpay && razorpayOrder) {
+    return NextResponse.json({
+      ok: true,
+      orderId: order.id,
+      razorpay: {
+        keyId: getRazorpayKeyId(),
+        orderId: razorpayOrder.id,
+        amount: razorpayOrder.amount,
+        currency: razorpayOrder.currency,
+        name: "Infidec Marketplace",
+        description: `Order ${order.id}`,
+        prefill: {
+          name: billing.fullName,
+          email: billing.email,
+          contact: billing.phone,
+        },
+      },
+    });
+  }
+
   return NextResponse.json({ ok: true, orderId: order.id });
 }
