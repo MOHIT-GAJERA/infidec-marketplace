@@ -77,7 +77,11 @@ export type Order = {
   total: number;
   currency: "INR";
   paymentMethod: string;
-  status: "paid" | "pending";
+  status: "paid" | "pending" | "failed";
+  razorpayOrderId?: string;
+  razorpayPaymentId?: string;
+  razorpaySignature?: string;
+  paidAt?: string;
   billing: {
     fullName: string;
     email: string;
@@ -133,6 +137,14 @@ export const orders = {
     // Sorted here rather than with orderBy() so no composite index is needed.
     return snap.docs.map((d) => d.data() as Order).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
   },
+  async findById(id: string) {
+    const snap = await firestore().collection(ORDERS).doc(id).get();
+    return snap.exists ? (snap.data() as Order) : undefined;
+  },
+  async findByRazorpayOrderId(razorpayOrderId: string) {
+    const snap = await firestore().collection(ORDERS).where("razorpayOrderId", "==", razorpayOrderId).limit(1).get();
+    return snap.docs[0] ? (snap.docs[0].data() as Order) : undefined;
+  },
   async findForUser(id: string, userId: string) {
     const snap = await firestore().collection(ORDERS).doc(id).get();
     const order = snap.exists ? (snap.data() as Order) : undefined;
@@ -140,6 +152,9 @@ export const orders = {
   },
   async create(order: Order) {
     await firestore().collection(ORDERS).doc(order.id).create(order);
+  },
+  async update(id: string, patch: Partial<Order>) {
+    await firestore().collection(ORDERS).doc(id).update(patch);
   },
 };
 
