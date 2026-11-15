@@ -45,3 +45,9 @@ yarn-error.log*
 next-env.d.ts
 /design
 /public/thumbs
+
+# service account keys / secrets – never commit
+/secret
+
+# firebase deploy cache
+/.firebase

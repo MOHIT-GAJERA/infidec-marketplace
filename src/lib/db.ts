@@ -1,13 +1,47 @@
 import "server-only";
-import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
+import { existsSync } from "node:fs";
+import { createRequire } from "node:module";
 import { join } from "node:path";
+import type * as AdminApp from "firebase-admin/app";
+import type * as AdminFirestore from "firebase-admin/firestore";
+import type { Firestore } from "firebase-admin/firestore";
+
+/*
+ * firebase-admin is loaded with Node's own require at runtime instead of a static import.
+ * Firebase Hosting runs a plain `next build` (Turbopack), which rewrites static imports of
+ * external packages to a hashed symlink pointing at this machine's node_modules – that symlink
+ * is broken once deployed to Cloud Functions. The non-literal specifier keeps the bundler from
+ * rewriting it; the package is installed normally in the function's node_modules.
+ */
+const nodeRequire = createRequire(join(process.cwd(), "package.json"));
+const admin = (sub: "app" | "firestore") => nodeRequire(["firebase-admin", sub].join("/"));
+const { applicationDefault, cert, getApps, initializeApp } = admin("app") as typeof AdminApp;
+const { getFirestore } = admin("firestore") as typeof AdminFirestore;
 
 /**
- * Minimal JSON-file persistence so accounts and orders work without extra infrastructure.
- * Suitable for a single Node.js server (`next start`, VPS, Docker). For serverless hosting
- * (read-only file system) swap these helpers for a real database such as Postgres or MongoDB.
+ * Accounts and orders live in Cloud Firestore (project "marketplace-infidec").
+ *
+ * - On Firebase (Cloud Functions) the runtime service account is picked up automatically.
+ * - Locally, set FIREBASE_SERVICE_ACCOUNT_FILE (see .env.development.local) to the
+ *   service-account JSON in /secret. That folder is gitignored and is never deployed.
+ *
+ * Firestore security rules deny all client access; only this server code (Admin SDK) reads/writes.
  */
-const DATA_DIR = process.env.DATA_DIR || join(process.cwd(), ".data");
+let db: Firestore | undefined;
+function firestore(): Firestore {
+  if (db) return db;
+  const keyFile = process.env.FIREBASE_SERVICE_ACCOUNT_FILE;
+  const app =
+    getApps()[0] ??
+    initializeApp({
+      projectId: process.env.FIREBASE_PROJECT_ID || "marketplace-infidec",
+      credential: keyFile && existsSync(keyFile) ? cert(keyFile) : applicationDefault(),
+    });
+  db = getFirestore(app);
+  // Optional fields (company, gstin…) may be undefined; Firestore rejects those unless told to skip them.
+  db.settings({ ignoreUndefinedProperties: true });
+  return db;
+}
 
 export type User = {
   id: string;
@@ -59,62 +93,53 @@ export type Order = {
   createdAt: string;
 };
 
-// Serialise writes per file so concurrent requests don't clobber each other.
-const locks = new Map<string, Promise<unknown>>();
-
-async function readJson<T>(name: string): Promise<T[]> {
-  try {
-    return JSON.parse(await readFile(join(DATA_DIR, `${name}.json`), "utf8")) as T[];
-  } catch {
-    return [];
-  }
-}
-
-async function update<T>(name: string, fn: (rows: T[]) => T[] | Promise<T[]>): Promise<void> {
-  const prev = locks.get(name) ?? Promise.resolve();
-  const next = prev.then(async () => {
-    await mkdir(DATA_DIR, { recursive: true });
-    const rows = await fn(await readJson<T>(name));
-    const file = join(DATA_DIR, `${name}.json`);
-    await writeFile(`${file}.tmp`, JSON.stringify(rows, null, 2));
-    await rename(`${file}.tmp`, file);
-  });
-  locks.set(name, next.catch(() => undefined));
-  return next;
-}
+const USERS = "users";
+/** users_by_email/{email} -> { userId }: guarantees one account per email address. */
+const USERS_BY_EMAIL = "users_by_email";
+const ORDERS = "orders";
 
 export const users = {
   async findByEmail(email: string) {
-    const all = await readJson<User>("users");
-    return all.find((u) => u.email === email.toLowerCase());
+    const fs = firestore();
+    const idx = await fs.collection(USERS_BY_EMAIL).doc(email.toLowerCase()).get();
+    if (!idx.exists) return undefined;
+    const snap = await fs.collection(USERS).doc(idx.get("userId") as string).get();
+    return snap.exists ? (snap.data() as User) : undefined;
   },
   async findById(id: string) {
-    const all = await readJson<User>("users");
-    return all.find((u) => u.id === id);
+    const snap = await firestore().collection(USERS).doc(id).get();
+    return snap.exists ? (snap.data() as User) : undefined;
   },
   /** Returns false if the email is already registered. */
   async create(user: User) {
-    let created = false;
-    await update<User>("users", (rows) => {
-      if (rows.some((u) => u.email === user.email)) return rows;
-      created = true;
-      return [...rows, user];
-    });
-    return created;
+    const fs = firestore();
+    const batch = fs.batch();
+    // create() fails if the doc already exists, so the whole batch is rejected for a duplicate email.
+    batch.create(fs.collection(USERS_BY_EMAIL).doc(user.email.toLowerCase()), { userId: user.id });
+    batch.create(fs.collection(USERS).doc(user.id), user);
+    try {
+      await batch.commit();
+      return true;
+    } catch (err) {
+      if ((err as { code?: number }).code === 6 /* ALREADY_EXISTS */) return false;
+      throw err;
+    }
   },
 };
 
 export const orders = {
   async listByUser(userId: string) {
-    const all = await readJson<Order>("orders");
-    return all.filter((o) => o.userId === userId).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+    const snap = await firestore().collection(ORDERS).where("userId", "==", userId).get();
+    // Sorted here rather than with orderBy() so no composite index is needed.
+    return snap.docs.map((d) => d.data() as Order).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
   },
   async findForUser(id: string, userId: string) {
-    const all = await readJson<Order>("orders");
-    return all.find((o) => o.id === id && o.userId === userId);
+    const snap = await firestore().collection(ORDERS).doc(id).get();
+    const order = snap.exists ? (snap.data() as Order) : undefined;
+    return order?.userId === userId ? order : undefined;
   },
   async create(order: Order) {
-    await update<Order>("orders", (rows) => [...rows, order]);
+    await firestore().collection(ORDERS).doc(order.id).create(order);
   },
 };
 
