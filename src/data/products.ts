@@ -3,6 +3,7 @@ import { go4foodieProduct } from "./go4foodie.ts";
 import { go4rideProduct } from "./go4ride.ts";
 import { classiadshubProduct } from "./classiadshub.ts";
 import { go4marketProduct } from "./go4market.ts";
+import { booqoraProduct } from "./booqora.ts";
 
 export type ProductType = "app" | "addon";
 
@@ -36,7 +37,8 @@ export type ThumbIcon =
   | "cookie"
   | "headphones"
   | "taxi"
-  | "megaphone";
+  | "megaphone"
+  | "calendar";
 
 export type Product = {
   slug: string;
@@ -81,6 +83,7 @@ export const products: Product[] = [
   go4foodieProduct,
   go4rideProduct,
   classiadshubProduct,
+  booqoraProduct,
 ];
 
 export const getProduct = (slug: string) => products.find((p) => p.slug === slug);
