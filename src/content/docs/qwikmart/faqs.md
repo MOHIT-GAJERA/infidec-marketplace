@@ -75,4 +75,4 @@ Yes — personal accounts created after November 2023 need 12 testers for 14 day
 Apps: [Change App Name](doc:app-customer/change-app-name), [Logo](doc:app-customer/change-app-logo), [Theme](doc:app-customer/change-theme). Website: [Configuration & Theming](doc:web/configuration).
 
 ### How do I add a language?
-See [Manage Languages](doc:app-customer/languages) and add it in Admin → Languages.
+In **Admin → Settings → Languages** pick the language, then translate the Website, Customer App and Delivery Boy App texts in the built-in editor. The apps and website load the texts from Firestore, so no rebuild or Play Store update is needed. See [Languages & Translations](doc:admin/languages).

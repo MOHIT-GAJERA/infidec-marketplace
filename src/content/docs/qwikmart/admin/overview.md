@@ -21,7 +21,7 @@ This section takes you from an empty Google account to a fully configured, live 
 | **Storefront** | Home Builder layouts (Quick and eCommerce), banners, CMS pages, blog, FAQs |
 | **Marketing** | Promo codes, push notifications, bulk e-mail |
 | **Communication** | Support chat with customers and riders, website Contact Us messages |
-| **Configuration** | General settings, payment gateways, SMTP, SMS, Firebase push, Google Gemini AI, wallet, referral, delivery, maintenance |
+| **Configuration** | General settings, payment gateways, SMTP, SMS, Firebase push, Google Gemini AI, wallet, referral, delivery, maintenance, languages & translations |
 | **Team** | Staff users, roles & permissions, store users and store roles |
 
 ## How QwikMart is put together

@@ -28,7 +28,7 @@ Titles and descriptions are translation keys in `assets/l10n/<language>.json`:
 "onb_body_3": "…"
 ```
 
-Change the same keys in `hi.json`, `ar.json` and any language you add.
+Change the same keys in `hi.json`, `ar.json` and any language you add — or, without a rebuild, change them in **Admin → Languages → Edit Customer App** (see [Languages & Translations](doc:admin/languages)).
 
 ## Slide order, colours, number of slides
 

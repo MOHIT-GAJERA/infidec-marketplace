@@ -10,7 +10,7 @@ description: Re-brand the Delivery Boy App — launcher name, icon, splash, colo
 | Name inside the app | `lib/core/config.dart` → `appName` |
 | Support contact | `lib/core/config.dart` → `supportPhone`, `supportEmail` |
 | Brand colours | `lib/core/theme.dart` → `AppColors.primary`, `primaryDark`, … |
-| Texts (English, Hindi, Arabic) | `lib/core/l10n.dart` |
+| Texts (English, Hindi, Arabic) | `lib/core/l10n.dart` (built-in) — or live, without a rebuild, in **Admin → Languages → Edit Delivery Boy App** (see [Languages & Translations](doc:admin/languages)) |
 | Online notification text | `lib/core/location_service.dart` → `ForegroundNotificationConfig` (`notificationTitle`, `notificationText`) |
 
 ## Icon and splash

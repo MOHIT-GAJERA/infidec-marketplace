@@ -26,6 +26,7 @@ src/
     payments.ts           Razorpay, Stripe, Cashfree, redirect gateway hand-off
     push.ts               Optional web push
     i18n.ts               English / Arabic (RTL) / Hindi UI strings
+    i18n-remote.ts        Loads languages and texts managed in Admin → Languages
   store/                  zustand stores: location, auth profile, cart, UI
 public/                   Static images, firebase-messaging-sw.js
 apphosting.yaml           App Hosting runtime + build environment
@@ -37,7 +38,7 @@ apphosting.yaml           App Hosting runtime + build environment
 | Change | File |
 |---|---|
 | Colours, fonts | `tailwind.config.*`, `src/app/globals.css` |
-| UI texts | `src/lib/i18n.ts` |
+| UI texts | `src/lib/i18n.ts` (built-in) · **Admin → Languages** (live) |
 | Header / footer layout | `src/components/layout/` |
 | Product card | `src/components/product/ProductCard.tsx` |
 | Logo & favicon | `public/`, `src/app/icon.png`, `src/app/apple-icon.png` |

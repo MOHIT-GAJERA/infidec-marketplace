@@ -51,8 +51,8 @@ const qwikmart: DocsProduct = {
     "Complete guide for the QwikMart quick-commerce & grocery delivery platform",
   description:
     "Install, configure, brand and publish QwikMart: Firebase backend, Admin & Store panels, Next.js website, Flutter customer app and Flutter delivery partner app.",
-  version: "1.0.1",
-  updated: "21 October 2026",
+  version: "1.0.2",
+  updated: "23 November 2026",
   colors: { accent: "#0E9623", ink: "#0B6B1B", soft: "#E6F4E9" },
   logo: "/docs/qwikmart/logo.png",
   productUrl: "/products/qwikmart-all-in-one-quick-commerce-ecommerce-platform",
@@ -134,6 +134,7 @@ const qwikmart: DocsProduct = {
               slug: "admin/push-notifications",
             },
             { title: "AI (Google Gemini)", slug: "admin/ai-settings" },
+            { title: "Languages & Translations", slug: "admin/languages" },
             {
               title: "Wallet, Referral & Delivery",
               slug: "admin/wallet-referral-delivery",
@@ -156,6 +157,7 @@ const qwikmart: DocsProduct = {
               slug: "admin/roles-permissions",
             },
             { title: "Store Panel", slug: "admin/store-panel" },
+            { title: "Delivery Boy Panel", slug: "admin/delivery-panel" },
           ],
         },
       ],

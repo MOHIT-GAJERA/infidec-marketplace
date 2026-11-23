@@ -17,3 +17,5 @@ description: Sales, product, tax, store and delivery boy reports with filters an
 | **Quick vs eCommerce** | Share of orders and revenue by fulfilment mode |
 
 Every report has a date range and zone/store filters and can be **exported to CSV**. The dashboard uses the same daily statistics, updated automatically as orders change.
+
+Report days run from midnight to midnight in the **time zone of the country** you filter by (or the store's country; otherwise the general time zone from System Settings) — see [Countries & Currency](doc:admin/countries).

@@ -39,4 +39,4 @@ Approved returns can be assigned to a rider for pickup — see [Returns & Refund
 
 ## Rider web panel
 
-Riders can also use the browser panel at `/delivery/login` with the same login as the app.
+Riders can also use the browser panel at `/delivery/login` with the same login as the app — see [Delivery Boy Panel](doc:admin/delivery-panel).

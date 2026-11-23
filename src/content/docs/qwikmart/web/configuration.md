@@ -36,7 +36,7 @@ Replace the files in `public/` (logo) and `src/app/` (`icon.png`, `apple-icon.pn
 
 ### Texts
 
-UI strings for English, Arabic and Hindi are in `src/lib/i18n.ts`. The site is **light mode only**.
+The built-in UI strings for English, Arabic and Hindi are in `src/lib/i18n.ts`. Texts and extra languages added in **Admin → Settings → Languages** (`translations/{code}_website`) are loaded at runtime by `src/lib/i18n-remote.ts` and override the built-in ones — see [Languages & Translations](doc:admin/languages). If you add new keys to `i18n.ts`, rebuild the Admin Panel (`scripts/sync-web-strings.mjs`) so they appear in its translation editor. The site is **light mode only**.
 
 ### SEO
 

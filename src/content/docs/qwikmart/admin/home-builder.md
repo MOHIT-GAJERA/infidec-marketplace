@@ -29,10 +29,10 @@ The **Home Builder** controls what customers see on the home screen of the **Cus
 Click **Add section**, pick a type and fill its content. Upload banners in **Banners** first, or directly in the section.
 
 ### Reorder
-Drag sections into the order you want. Use the device preview on the right to check the result.
+Drag sections into the order you want. The **live preview** on the right mirrors the real storefront (top bar with logo, Quick/eCommerce switch, delivery badge, category strip and hero) and can be switched between **mobile**, **tablet** and **desktop** sizes.
 
-### Header
-Set the header colour shown behind the search bar for this layout.
+### Header and category tabs
+Set the header colour shown behind the search bar for this layout. The category strip at the top of the home screen shows the top-level categories of this mode (plus **All**). Select a category tab to set its own **Category colour** (tints the strip when that tab is open) and **Category icon** (shown in the strip). Both are saved on the category itself, so the app and website use them everywhere.
 
 ### Publish
 Click **Publish**. Until then your changes are a **draft** — customers keep seeing the published version.

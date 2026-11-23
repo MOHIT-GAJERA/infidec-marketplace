@@ -46,7 +46,8 @@ QwikMart has **no separate server to maintain**. Everything runs on Google Fireb
 - **Support chat**, website **Contact Us** form, push / email / SMS notifications.
 - **Roles & permissions** for staff, plus a dedicated **Store panel** for store owners.
 - **AI**: product description & translation generation with Google Gemini.
-- **3 languages** out of the box (English, Hindi, Arabic with RTL) — add more any time.
+- **Multilingual**: English, Hindi and Arabic (RTL) built in; add any language and translate the website and both apps from **Admin → Languages** — no app rebuild needed.
+- **Multi-currency & time zones**: each country has its own currency (used for prices, payments and wallet top-ups) and time zone (surge and promo windows, report days).
 
 ## The recommended path
 
